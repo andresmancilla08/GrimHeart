@@ -22,7 +22,8 @@ export function SubHeader({ backHref, onBack, rightElement }: Props) {
   }
 
   return (
-    <div className="pt-safe flex h-14 items-center justify-between bg-background/70 px-4 backdrop-blur-md">
+    <div className="pt-safe bg-background/70 backdrop-blur-md">
+    <div className="flex items-center justify-between px-4 py-[10px]">
       <button
         type="button"
         onClick={handleBack}
@@ -33,6 +34,7 @@ export function SubHeader({ backHref, onBack, rightElement }: Props) {
       </button>
 
       {rightElement ?? <Image src="/logo-sm.png" alt="GrimHeart" width={42} height={42} />}
+    </div>
     </div>
   );
 }
