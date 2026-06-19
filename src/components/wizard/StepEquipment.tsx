@@ -225,7 +225,7 @@ export function StepEquipment({ data, onChange }: Props) {
             <span className="text-base leading-none" aria-hidden>{s.icon}</span>
             <span className="text-[10px] font-medium leading-none">{s.label}</span>
             {section === s.key && (
-              <span className="absolute bottom-1.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-gold" />
+              <span className="absolute bottom-2.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-gold" />
             )}
           </button>
         ))}
