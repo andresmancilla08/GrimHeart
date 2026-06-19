@@ -1,7 +1,7 @@
 import { redirect, notFound } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { getCharacter } from "@/lib/characters/actions";
-import { AppHeader } from "@/components/AppHeader";
+import { SubHeader } from "@/components/SubHeader";
 import { CharacterSheetClient } from "@/components/CharacterSheetClient";
 
 interface Props {
@@ -20,7 +20,7 @@ export default async function CharacterPage({ params }: Props) {
     <div className="relative flex min-h-dvh flex-col text-foreground">
       <div className="dh-aurora" aria-hidden />
       <div className="dh-grain" aria-hidden />
-      <AppHeader username={session.username} />
+      <SubHeader backHref="/characters" />
       <main className="z-10 flex-1">
         <CharacterSheetClient character={character} />
       </main>

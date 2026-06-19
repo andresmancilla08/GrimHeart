@@ -2,23 +2,10 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IconLogout } from "@tabler/icons-react";
 import { logout } from "@/lib/auth/actions";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { BottomSheet } from "@/components/ui/BottomSheet";
-
-function LogoutIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path
-        d="M15 12H4m0 0 3.5-3.5M4 12l3.5 3.5M14 6V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-1"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export function AppMenu({ username }: { username: string }) {
   const { t } = useTranslation();
@@ -66,7 +53,7 @@ export function AppMenu({ username }: { username: string }) {
               type="submit"
               className="flex h-12 w-full items-center justify-center gap-2 rounded-full border border-danger/30 bg-danger/10 font-medium text-danger transition active:scale-[0.99]"
             >
-              <LogoutIcon className="h-5 w-5" />
+              <IconLogout size={20} stroke={1.8} />
               {t("nav.signOut")}
             </button>
           </form>

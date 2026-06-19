@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import type { Character } from "@/lib/daggerheart/types";
 import { CARDS_BY_ID } from "@/lib/daggerheart/cards";
@@ -17,11 +16,6 @@ export function CharacterSheetClient({ character: c }: { character: Character })
 
   return (
     <div className="dh-rise flex flex-col gap-4 px-5 py-6">
-      {/* Back */}
-      <Link href="/characters" className="flex items-center gap-1 text-sm text-muted hover:text-foreground transition">
-        ← {t("characters.title")}
-      </Link>
-
       {/* Header */}
       <div className="flex items-center gap-4">
         <div className="flex h-16 w-16 items-center justify-center rounded-full border border-gold/30 bg-gold/10 font-display text-2xl font-bold text-gold">

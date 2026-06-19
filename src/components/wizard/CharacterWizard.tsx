@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
+import { SubHeader } from "@/components/SubHeader";
 import { TRAIT_ARRAY } from "@/lib/daggerheart/reference";
 import { createCharacter } from "@/lib/characters/actions";
 import type { CreateCharacterInput } from "@/lib/characters/actions";
@@ -103,8 +104,11 @@ export function CharacterWizard() {
 
   return (
     <div className="relative flex h-dvh flex-col overflow-hidden overscroll-none">
+      {/* Sub-header: back to characters + logo */}
+      <SubHeader backHref="/characters" />
+
       {/* Progress bar */}
-      <div className="shrink-0 border-b border-border bg-surface/80 px-5 pb-3 pt-safe backdrop-blur-sm">
+      <div className="shrink-0 border-b border-border bg-surface/80 px-5 pb-3 pt-3 backdrop-blur-sm">
         <div className="flex items-center justify-between pb-2">
           <span className="font-display text-xs font-semibold uppercase tracking-widest text-gold/70">
             {t(`wizard.stepNames.${stepKey}`)}

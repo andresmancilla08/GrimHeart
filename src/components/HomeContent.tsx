@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { IconChevronRight } from "@tabler/icons-react";
 import { AppHeader } from "@/components/AppHeader";
 
 interface Module {
@@ -67,9 +68,7 @@ export function HomeContent({ username }: { username: string }) {
                 <p className="font-display text-base font-semibold text-foreground">{t(mod.labelKey)}</p>
                 <p className="mt-0.5 text-xs text-muted line-clamp-1">{t(mod.descKey)}</p>
               </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="shrink-0 text-muted/40">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m9 18 6-6-6-6" />
-              </svg>
+              <IconChevronRight size={18} className="shrink-0 text-muted/40" />
             </Link>
           ))}
         </div>
