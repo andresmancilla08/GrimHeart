@@ -1,15 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { DaggerheartMark } from "@/components/auth/DaggerheartMark";
 
 interface Props {
   backHref?: string;
   onBack?: () => void;
 }
 
-/** Interior screen header: back arrow (left) + app logo (right). */
+/** Interior screen header: back arrow (left) + brand (right). */
 export function SubHeader({ backHref, onBack }: Props) {
   const router = useRouter();
 
@@ -30,14 +30,10 @@ export function SubHeader({ backHref, onBack }: Props) {
         <IconArrowLeft size={20} stroke={1.8} />
       </button>
 
-      <Image
-        src="/logo-sm.png"
-        alt="Grimheart"
-        width={36}
-        height={36}
-        className="h-9 w-9 object-contain"
-        priority
-      />
+      <span className="flex items-center gap-1.5 font-display text-base font-semibold tracking-wide text-foreground">
+        <DaggerheartMark className="h-6 w-6" />
+        Grimheart
+      </span>
     </div>
   );
 }
