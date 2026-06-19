@@ -58,7 +58,7 @@ const ANCESTRY_FALLBACK_GRADIENT: Partial<Record<AncestryKey, string>> = {
   galapa:   "from-cyan-900/80 to-slate-900",
   giant:    "from-stone-800/80 to-stone-950",
   goblin:   "from-green-800/80 to-stone-950",
-  halfling: "/art/ancestry/halfling.jpg",
+  halfling: "from-rose-900/80 to-stone-900",
   human:    "from-neutral-700/80 to-stone-900",
   infernis: "from-orange-900/80 to-red-950",
   katari:   "from-yellow-800/80 to-stone-900",
