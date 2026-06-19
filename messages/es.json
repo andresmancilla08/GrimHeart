@@ -1,0 +1,19 @@
+{
+  "app": {
+    "name": "DHApp",
+    "tagline": "Crea y gestiona tus personajes de Daggerheart."
+  },
+  "nav": {
+    "characters": "Personajes",
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión"
+  },
+  "home": {
+    "title": "Tus hojas de personaje de Daggerheart, en cualquier lugar.",
+    "subtitle": "Crea héroes, elige tu clase y dominios, roba cartas, sube de nivel — todo en un solo lugar.",
+    "cta": "Crear un personaje"
+  },
+  "locale": {
+    "label": "Idioma"
+  }
+}

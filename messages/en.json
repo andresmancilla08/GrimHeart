@@ -1,0 +1,19 @@
+{
+  "app": {
+    "name": "DHApp",
+    "tagline": "Build and manage your Daggerheart characters."
+  },
+  "nav": {
+    "characters": "Characters",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "home": {
+    "title": "Your Daggerheart character sheets, anywhere.",
+    "subtitle": "Create heroes, choose your class and domains, draw cards, level up — all in one place.",
+    "cta": "Create a character"
+  },
+  "locale": {
+    "label": "Language"
+  }
+}
