@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { PRIMARY_WEAPONS, SECONDARY_WEAPONS, ARMORS } from "@/lib/daggerheart/equipment";
@@ -33,6 +34,12 @@ const RANGE_ICON: Record<WeaponRange, string> = {
 };
 
 const SECTION_ICON = { primary: "⚔", secondary: "✦", armor: "⬡" } as const;
+
+const SECTION_ART: Record<"primary" | "secondary" | "armor", { src: string; pos: string }> = {
+  primary:   { src: "/art/equipment/primary.jpg",   pos: "center 40%" },
+  secondary: { src: "/art/equipment/secondary.jpg", pos: "center 30%" },
+  armor:     { src: "/art/equipment/armor.jpg",      pos: "center 15%" },
+};
 
 const SELECTED_SHADOW = "shadow-[0_0_0_1px_rgba(217,164,65,0.25),0_8px_24px_-8px_rgba(217,164,65,0.35)]";
 const SELECTED_CLASSES = `border-gold/60 bg-gold/[0.06] ${SELECTED_SHADOW}`;
@@ -222,6 +229,23 @@ export function StepEquipment({ data, onChange }: Props) {
             )}
           </button>
         ))}
+      </div>
+
+      {/* ── Section art banner ───────────────────────────────────────────── */}
+      <div className="relative h-[130px] overflow-hidden rounded-2xl">
+        <Image
+          key={section}
+          src={SECTION_ART[section].src}
+          alt=""
+          fill
+          sizes="(max-width: 640px) calc(100vw - 40px), 600px"
+          style={{ objectFit: "cover", objectPosition: SECTION_ART[section].pos }}
+          className="dh-rise"
+        />
+        {/* Bottom fade to content */}
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
+        {/* Subtle vignette edges */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/50" />
       </div>
 
       {/* ── Primary weapons ───────────────────────────────────────────────── */}
