@@ -159,7 +159,8 @@
       "secondaryShort": "Secondary",
       "burden": "Burden",
       "oneHandedShort": "1H",
-      "twoHandedShort": "2H"
+      "twoHandedShort": "2H",
+      "sectionsLabel": "Equipment sections"
     },
     "background": {
       "title": "Your Experiences",
@@ -185,11 +186,12 @@
       "armor": "Armor",
       "stats": "Starting Stats",
       "evasion": "Evasion",
-      "hp": "Hit Points",
+      "hp": "HP",
       "stress": "Stress",
       "hope": "Hope",
-      "proficiency": "Proficiency",
-      "experiences": "Experiences"
+      "proficiency": "Prof.",
+      "experiences": "Experiences",
+      "statsGroup": "Starting stats"
     }
   },
   "dh": {

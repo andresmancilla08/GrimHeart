@@ -159,7 +159,8 @@
       "secondaryShort": "Secundaria",
       "burden": "Carga",
       "oneHandedShort": "1M",
-      "twoHandedShort": "2M"
+      "twoHandedShort": "2M",
+      "sectionsLabel": "Secciones de equipo"
     },
     "background": {
       "title": "Tus Experiencias",
@@ -185,11 +186,12 @@
       "armor": "Armadura",
       "stats": "Stats Iniciales",
       "evasion": "Evasión",
-      "hp": "Puntos de Vida",
+      "hp": "Vida",
       "stress": "Estrés",
       "hope": "Esperanza",
-      "proficiency": "Competencia",
-      "experiences": "Experiencias"
+      "proficiency": "Comp.",
+      "experiences": "Experiencias",
+      "statsGroup": "Stats iniciales"
     }
   },
   "dh": {

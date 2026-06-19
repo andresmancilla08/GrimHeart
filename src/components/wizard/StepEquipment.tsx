@@ -205,28 +205,42 @@ export function StepEquipment({ data, onChange }: Props) {
   return (
     <div className="flex flex-col gap-4">
       {/* ── Tab switcher ─────────────────────────────────────────────────── */}
-      <div className="flex gap-1 rounded-2xl border border-border bg-surface-2/30 p-1.5">
+      <div
+        role="tablist"
+        aria-label={t("wizard.equipment.sectionsLabel")}
+        className="flex gap-1 rounded-2xl border border-border bg-surface-2/30 p-1.5"
+      >
         {sections.map((s) => (
           <button
             key={s.key}
             type="button"
-            disabled={s.disabled}
+            role="tab"
+            aria-selected={section === s.key}
+            aria-controls={`equipment-panel-${s.key}`}
+            id={`equipment-tab-${s.key}`}
+            aria-disabled={s.disabled}
+            tabIndex={section === s.key ? 0 : -1}
             onClick={() => !s.disabled && setSection(s.key)}
             className={[
               "relative flex min-h-[44px] flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-2 py-2",
               "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
               section === s.key
-                ? "bg-gold/[0.08] text-gold"
+                ? "bg-gold/[0.12] text-gold shadow-[inset_0_1px_0_rgba(240,194,94,0.55),inset_0_0_0_1px_rgba(217,164,65,0.2),0_0_12px_-4px_rgba(217,164,65,0.3)]"
                 : s.disabled
-                ? "cursor-not-allowed text-muted/25"
-                : "text-muted hover:text-foreground",
+                ? "cursor-not-allowed text-muted/30"
+                : "text-muted hover:text-foreground active:scale-[0.985]",
             ].join(" ")}
           >
-            <span className="text-base leading-none" aria-hidden>{s.icon}</span>
-            <span className="text-[10px] font-medium leading-none">{s.label}</span>
-            {section === s.key && (
-              <span className="absolute bottom-2.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-gold" />
-            )}
+            <span
+              className={[
+                "text-base leading-none transition-all duration-150",
+                section === s.key ? "drop-shadow-[0_0_6px_rgba(217,164,65,0.7)]" : "",
+              ].join(" ")}
+              aria-hidden
+            >
+              {s.icon}
+            </span>
+            <span className="text-[11px] font-medium leading-none">{s.label}</span>
           </button>
         ))}
       </div>
@@ -250,7 +264,7 @@ export function StepEquipment({ data, onChange }: Props) {
 
       {/* ── Primary weapons ───────────────────────────────────────────────── */}
       {section === "primary" && (
-        <div className="flex flex-col gap-2">
+        <div role="tabpanel" id="equipment-panel-primary" aria-labelledby="equipment-tab-primary" className="flex flex-col gap-2">
           {PRIMARY_WEAPONS.map((w, i) => (
             <WeaponCard
               key={w.id}
@@ -269,7 +283,7 @@ export function StepEquipment({ data, onChange }: Props) {
 
       {/* ── Secondary weapons ─────────────────────────────────────────────── */}
       {section === "secondary" && primaryIsOneHanded && (
-        <div className="flex flex-col gap-2">
+        <div role="tabpanel" id="equipment-panel-secondary" aria-labelledby="equipment-tab-secondary" className="flex flex-col gap-2">
           <p className="text-xs text-muted">{t("wizard.equipment.secondaryHint")}</p>
           {/* "None" option */}
           <button
@@ -303,7 +317,7 @@ export function StepEquipment({ data, onChange }: Props) {
 
       {/* ── Armor ─────────────────────────────────────────────────────────── */}
       {section === "armor" && (
-        <div className="flex flex-col gap-2">
+        <div role="tabpanel" id="equipment-panel-armor" aria-labelledby="equipment-tab-armor" className="flex flex-col gap-2">
           {/* "No armor" option */}
           <button
             type="button"
