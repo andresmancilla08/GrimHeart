@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { SubHeader } from "@/components/SubHeader";
@@ -25,6 +25,12 @@ export function CharacterWizard() {
   const [data, setData] = useState<WizardData>(INITIAL_DATA);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Reset scroll to top whenever the step changes
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
+  }, [step]);
 
   function update(patch: Partial<WizardData>) {
     setData((prev) => ({ ...prev, ...patch }));
@@ -134,7 +140,7 @@ export function CharacterWizard() {
       </div>
 
       {/* Content */}
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-2">
+      <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-2">
         {stepComponents[stepKey]}
       </div>
 
