@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
-import { DaggerheartMark } from "./DaggerheartMark";
 
 export function AuthShell({
   mode,
@@ -17,12 +17,7 @@ export function AuthShell({
   return (
     <div className="rounded-3xl border border-border bg-surface/80 px-6 py-7 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] backdrop-blur-sm sm:px-8 sm:py-9">
       <div className="mb-6 flex flex-col items-center text-center">
-        <span className="dh-mark-glow">
-          <DaggerheartMark className="h-11 w-11" />
-        </span>
-        <p className="mt-3 font-display text-[0.7rem] uppercase tracking-[0.3em] text-gold/80">
-          {t("brand")}
-        </p>
+        <Image src="/logo.png" alt="GrimHeart" width={120} height={80} style={{ height: 72, width: "auto" }} priority />
         <h1 className="mt-3 font-display text-[1.6rem] font-semibold leading-tight text-foreground">
           {title}
         </h1>

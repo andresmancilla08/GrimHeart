@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { DaggerheartMark } from "@/components/auth/DaggerheartMark";
 
 interface Props {
   backHref?: string;
@@ -30,10 +30,7 @@ export function SubHeader({ backHref, onBack }: Props) {
         <IconArrowLeft size={20} stroke={1.8} />
       </button>
 
-      <span className="flex items-center gap-1.5 font-display text-base font-semibold tracking-wide text-foreground">
-        <DaggerheartMark className="h-6 w-6" />
-        Grimheart
-      </span>
+      <Image src="/logo.png" alt="GrimHeart" width={100} height={67} className="object-contain" style={{ height: 32, width: "auto" }} />
     </div>
   );
 }
