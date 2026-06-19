@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ANCESTRIES, COMMUNITIES } from "@/lib/daggerheart/reference";
 import type { WizardData } from "./types";
@@ -11,7 +12,6 @@ interface Props {
   onChange: (patch: Partial<WizardData>) => void;
 }
 
-// Art extracted from CoreBook — populated as images become available
 const ANCESTRY_ART: Partial<Record<AncestryKey, string>> = {
   clank:    "/art/ancestry/clank.jpg",
   drakona:  "/art/ancestry/drakona.jpg",
@@ -33,17 +33,8 @@ const ANCESTRY_ART: Partial<Record<AncestryKey, string>> = {
   simiah:   "/art/ancestry/simiah.jpg",
 };
 
-const COMMUNITY_ART: Partial<Record<CommunityKey, string>> = {
-  highborne:  "/art/community/highborne.jpg",
-  loreborne:  "/art/community/loreborne.jpg",
-  orderborne: "/art/community/orderborne.jpg",
-  ridgeborne: "/art/community/ridgeborne.jpg",
-  seaborne:   "/art/community/seaborne.jpg",
-  slyborne:   "/art/community/slyborne.jpg",
-  underborne: "/art/community/underborne.jpg",
-  wanderborne:"/art/community/wanderborne.jpg",
-  wildborne:  "/art/community/wildborne.jpg",
-};
+// Communities have no art yet — use gradient fallbacks only
+const COMMUNITY_ART: Partial<Record<CommunityKey, string>> = {};
 
 // Themed gradient fallbacks per ancestry (used when no art image is available)
 const ANCESTRY_FALLBACK_GRADIENT: Partial<Record<AncestryKey, string>> = {
@@ -89,6 +80,7 @@ function HeritageCard({
   description,
   onClick,
   colSpanFull,
+  cardRef,
 }: {
   cardKey: string;
   art?: string;
@@ -98,9 +90,11 @@ function HeritageCard({
   description: string;
   onClick: () => void;
   colSpanFull: boolean;
+  cardRef?: (el: HTMLDivElement | null) => void;
 }) {
   return (
     <div
+      ref={cardRef}
       role="radio"
       aria-checked={isSelected}
       tabIndex={0}
@@ -164,6 +158,20 @@ function HeritageCard({
 
 export function StepHeritage({ data, onChange }: Props) {
   const { t } = useTranslation();
+  const ancestryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const communityRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  useEffect(() => {
+    if (data.ancestryKey) {
+      ancestryRefs.current[data.ancestryKey]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [data.ancestryKey]);
+
+  useEffect(() => {
+    if (data.communityKey) {
+      communityRefs.current[data.communityKey]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [data.communityKey]);
 
   return (
     <div className="flex flex-col gap-8">
@@ -185,6 +193,7 @@ export function StepHeritage({ data, onChange }: Props) {
               description={t(`dh.ancestry.${key}_desc`)}
               onClick={() => onChange({ ancestryKey: key as AncestryKey })}
               colSpanFull={data.ancestryKey === key}
+              cardRef={(el) => { ancestryRefs.current[key] = el; }}
             />
           ))}
         </div>
@@ -208,6 +217,7 @@ export function StepHeritage({ data, onChange }: Props) {
               description={t(`dh.community.${key}_desc`)}
               onClick={() => onChange({ communityKey: key as CommunityKey })}
               colSpanFull={data.communityKey === key}
+              cardRef={(el) => { communityRefs.current[key] = el; }}
             />
           ))}
         </div>
