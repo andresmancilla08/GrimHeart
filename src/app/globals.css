@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
+/* ── Daggerheart design tokens ──────────────────────────────────────────
+   Dark, candle-lit fantasy. Gold = Hope, Violet = Fear, parchment text. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0c0a12;
+  --foreground: #ece3cf;
+
+  --surface: #17131f;
+  --surface-2: #1f1a2b;
+  --border: rgba(217, 164, 65, 0.16);
+  --border-strong: rgba(217, 164, 65, 0.35);
+
+  --gold: #d9a441;
+  --gold-bright: #f0c25e;
+  --gold-deep: #a87a26;
+
+  --fear: #7c5cc4;
+  --fear-bright: #a78bfa;
+
+  --muted: #9a8f7e;
+  --danger: #e06a5e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+  --color-fear: var(--fear);
+  --color-fear-bright: var(--fear-bright);
+  --color-muted: var(--muted);
+  --color-danger: var(--danger);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-cinzel);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Atmospheric backdrop: warm Hope glow above, cold Fear glow below + vignette. */
+.dh-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 50% at 50% -10%, rgba(217, 164, 65, 0.14), transparent 70%),
+    radial-gradient(55% 45% at 50% 115%, rgba(124, 92, 196, 0.18), transparent 70%),
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
+    var(--background);
+}
+
+/* Subtle film grain so the flat dark never looks like dead CSS. */
+.dh-grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes dh-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.dh-rise { animation: dh-rise 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+/* Soft Hope-glow behind the brand mark — the anchor "wow" detail. */
+.dh-mark-glow {
+  position: relative;
+}
+.dh-mark-glow::before {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  z-index: -1;
+  background: radial-gradient(circle, rgba(217, 164, 65, 0.28), transparent 65%);
+  filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dh-rise { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

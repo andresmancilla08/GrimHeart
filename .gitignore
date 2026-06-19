@@ -32,9 +32,15 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
+
+# Daggerheart core book — local reference only (175MB, copyrighted; never commit)
+CoreBook.pdf
+corebook.pdf
+*.pdf
 
 # typescript
 *.tsbuildinfo
@@ -44,3 +50,4 @@ next-env.d.ts
 public/sw.js
 public/sw.js.map
 public/swe-worker-*.js
+corebook.txt

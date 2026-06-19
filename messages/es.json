@@ -15,5 +15,37 @@
   },
   "locale": {
     "label": "Idioma"
+  },
+  "auth": {
+    "brand": "Daggerheart",
+    "loginTitle": "Bienvenido de nuevo, aventurero",
+    "loginSubtitle": "Inicia sesión para ver tu lista de héroes.",
+    "registerTitle": "Forja tu nombre",
+    "registerSubtitle": "Crea una cuenta para empezar a construir personajes.",
+    "tabLogin": "Iniciar sesión",
+    "tabRegister": "Crear cuenta",
+    "username": "Nombre de usuario",
+    "usernamePlaceholder": "ej. seraphblade",
+    "usernameHint": "3–20 caracteres. Solo letras, números y _, empezando por una letra.",
+    "pin": "PIN",
+    "pinHint": "Un PIN de 4 dígitos que usarás para entrar.",
+    "submitLogin": "Entrar",
+    "submitRegister": "Comenzar",
+    "switchToRegister": "¿Eres nuevo? Crea una cuenta",
+    "switchToLogin": "¿Ya tienes cuenta? Inicia sesión",
+    "signingIn": "Entrando…",
+    "creating": "Creando…",
+    "errors": {
+      "usernameRequired": "Escribe un nombre de usuario.",
+      "usernameShort": "El nombre debe tener al menos 3 caracteres.",
+      "usernameLong": "El nombre debe tener como máximo 20 caracteres.",
+      "usernameInvalid": "Usa solo letras, números y _, empezando por una letra.",
+      "usernameTaken": "Ese nombre de usuario ya está en uso.",
+      "pinRequired": "Escribe tu PIN.",
+      "pinInvalid": "El PIN debe ser exactamente 4 dígitos.",
+      "invalidCredentials": "Usuario o PIN incorrectos.",
+      "locked": "Demasiados intentos. Inténtalo de nuevo en unos minutos.",
+      "unknown": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }

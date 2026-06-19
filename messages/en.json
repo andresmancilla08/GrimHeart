@@ -15,5 +15,37 @@
   },
   "locale": {
     "label": "Language"
+  },
+  "auth": {
+    "brand": "Daggerheart",
+    "loginTitle": "Welcome back, adventurer",
+    "loginSubtitle": "Sign in to your roster of heroes.",
+    "registerTitle": "Forge your name",
+    "registerSubtitle": "Create an account to start building characters.",
+    "tabLogin": "Sign in",
+    "tabRegister": "Create account",
+    "username": "Username",
+    "usernamePlaceholder": "e.g. seraphblade",
+    "usernameHint": "3–20 characters. Letters, numbers and _ only, starting with a letter.",
+    "pin": "PIN",
+    "pinHint": "A 4-digit PIN you'll use to sign in.",
+    "submitLogin": "Enter",
+    "submitRegister": "Begin",
+    "switchToRegister": "New here? Create an account",
+    "switchToLogin": "Already have an account? Sign in",
+    "signingIn": "Signing in…",
+    "creating": "Creating…",
+    "errors": {
+      "usernameRequired": "Enter a username.",
+      "usernameShort": "Username must be at least 3 characters.",
+      "usernameLong": "Username must be at most 20 characters.",
+      "usernameInvalid": "Use only letters, numbers and _, starting with a letter.",
+      "usernameTaken": "That username is already taken.",
+      "pinRequired": "Enter your PIN.",
+      "pinInvalid": "PIN must be exactly 4 digits.",
+      "invalidCredentials": "Wrong username or PIN.",
+      "locked": "Too many attempts. Try again in a few minutes.",
+      "unknown": "Something went wrong. Please try again."
+    }
   }
 }
