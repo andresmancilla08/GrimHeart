@@ -25,7 +25,7 @@ export function CharacterSheetClient({ character: c, onLevelUp }: Props) {
   return (
     <div className="dh-rise flex flex-col gap-5">
       {/* ── Banner de clase ── */}
-      <div className="relative -mx-5 -mt-0 h-52 overflow-hidden">
+      <div className="relative -mx-5 -mt-6 h-56 overflow-hidden">
         <Image
           src={`/art/${c.classKey}.jpg`}
           alt=""
@@ -43,20 +43,20 @@ export function CharacterSheetClient({ character: c, onLevelUp }: Props) {
         <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#0c0a12]/60 to-transparent" />
 
         {/* Nombre y clase sobre el banner */}
-        <div className="absolute bottom-4 left-5 right-16">
+        <div className="absolute bottom-6 left-5 right-20">
           <h1 className="font-display text-3xl font-bold text-white drop-shadow-lg leading-tight line-clamp-2">
             {c.name}
           </h1>
           {c.pronouns && (
             <p className="text-xs text-white/50 mt-0.5">{c.pronouns}</p>
           )}
-          <p className="text-sm text-gold/80 mt-0.5">
+          <p className="text-sm text-gold/80 mt-1">
             {t(`dh.class.${c.classKey}`)} · {t("characters.level", { level: c.level })}
           </p>
         </div>
 
         {/* Badge de nivel */}
-        <div className="absolute right-4 bottom-4 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-[#0c0a12]/70 backdrop-blur-sm">
+        <div className="absolute right-5 bottom-6 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-[#0c0a12]/70 backdrop-blur-sm">
           <span className="font-display text-xl font-bold text-gold leading-none">{c.level}</span>
         </div>
       </div>
