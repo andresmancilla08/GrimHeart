@@ -1,49 +1,62 @@
-# DHApp — Hojas de personaje de Daggerheart
+# GrimHeart — Hojas de personaje de Daggerheart
 
-PWA para crear y gestionar hojas de personaje de **[Daggerheart](https://www.daggerheart.com/)**
-(el TTRPG de Darrington Press). Cada usuario crea su cuenta, arma sus personajes eligiendo
-clase, subclase, ascendencia (_ancestry_), comunidad (_community_), dominios, cartas, trasfondo
-y equipamiento, y los sube de nivel desbloqueando las opciones que correspondan a cada nivel.
+PWA mobile-first para crear y gestionar hojas de personaje de **[Daggerheart](https://www.daggerheart.com/)** (el TTRPG de Darrington Press). Diseñada con la estética oscura y dorada del propio juego, con soporte bilingüe **inglés / español** y flujo completo de creación y subida de nivel.
 
-Interfaz cuidada, inspirada en la estética del propio juego, con soporte bilingüe **inglés / español**.
+🌐 **[grimheart.co](https://grimheart.co)**
 
-> ⚠️ Proyecto no oficial. Daggerheart™ es propiedad de Darrington Press. Este software usa
-> contenido del **System Reference Document (SRD)** bajo la **Darrington Press Community Gaming
-> License (DPCGL)**. No está afiliado ni respaldado por Darrington Press / Critical Role.
+> ⚠️ Proyecto no oficial. Daggerheart™ es propiedad de Darrington Press. Contenido del **CoreBook** usado bajo la **Darrington Press Community Gaming License (DPCGL)**. No está afiliado ni respaldado por Darrington Press / Critical Role.
 
 ---
 
 ## Stack
 
-| Área            | Tecnología                                                |
-| --------------- | --------------------------------------------------------- |
-| Framework       | **Next.js 16** (App Router, React 19, TypeScript)         |
-| Estilos         | **Tailwind CSS v4**                                       |
-| i18n            | **next-intl** (sin routing por URL, locale en cookie)     |
-| PWA             | **Serwist** (`@serwist/next`) + Web App Manifest          |
-| Auth + datos    | **Supabase** (Auth + Postgres con RLS por usuario)        |
-| Deploy          | **Vercel**                                                |
+| Área | Tecnología |
+|---|---|
+| Framework | **Next.js 16** (App Router, React 19, TypeScript) |
+| Estilos | **Tailwind CSS v4** con tokens `@theme` personalizados |
+| i18n | **react-i18next** (EN / ES, detección automática) |
+| PWA | **Serwist** (`@serwist/next`) + Web App Manifest + offline |
+| Auth | Usuario + PIN — sessions firmadas con `jose` (JWT) |
+| Base de datos | **Firebase Firestore** (Admin SDK server-side, sin SDK cliente) |
+| Deploy | **Vercel** → **grimheart.co** vía GitHub Actions |
 
-Pendientes de añadir cuando empiece la UI del builder: `framer-motion` (animaciones),
-`zustand` (estado del creador de personaje), `zod` + `react-hook-form` (validación),
-`shadcn/ui` (componentes).
+---
+
+## Funcionalidades implementadas
+
+- **Autenticación** — registro y login con usuario/PIN (sin email), sessión persistente firmada
+- **Wizard de creación** (8 pasos) — Identidad → Clase/Subclase → Ascendencia/Comunidad → Rasgos → Cartas de Dominio → Equipamiento → Trasfondo → Revisión
+- **Hoja de personaje** — banner con arte de clase, stats, rasgos, cartas de dominio con ilustraciones individuales del CoreBook, equipo y experiencias
+- **Subida de nivel** — flujo guiado con logros automáticos (L2/5/8) y 7 tipos de avance (rasgos, PV, estrés, evasión, competencia, experiencias, carta de dominio)
+- **Wiki** — búsqueda + filtros por categoría (Ascendencia, Comunidad, Clase, Dominio, Equipamiento, Reglas) con ilustraciones del CoreBook
+- **Arte del CoreBook** — ilustraciones extraídas directamente del PDF oficial para clases, ascendencias, comunidades, dominios y cartas individuales
+- **Diseño mobile-first** — PWA instalable, safe-areas, animaciones rápidas (`dh-rise`, `dh-sheet`)
 
 ---
 
 ## Puesta en marcha
 
 ```bash
+git clone https://github.com/andresmancilla08/GrimHeart.git
+cd GrimHeart
 npm install
-cp .env.example .env.local   # rellena las claves de Supabase
-npm run dev                  # http://localhost:3000
+cp .env.example .env.local   # rellena las variables
+npm run dev                  # http://localhost:3000  (usa --webpack, no Turbopack)
 ```
 
 ### Variables de entorno
 
+```env
+# Firebase Admin SDK (service account)
+FIREBASE_PROJECT_ID=tu-project-id
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxx@tu-project.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+
+# Sesiones (string aleatorio ≥ 32 chars)
+SESSION_SECRET=genera-uno-con-openssl-rand-base64-32
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-```
+
+> **Nota:** El `CoreBook.pdf` y `corebook.txt` son gitignored (175 MB). Son necesarios solo para extraer arte nuevo. La app funciona sin ellos.
 
 ---
 
@@ -52,67 +65,103 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 src/
   app/
-    layout.tsx          # NextIntlClientProvider + metadata/manifest PWA
-    page.tsx            # landing
-    sw.ts               # service worker (Serwist)
+    (auth)/login|register/   # Autenticación (username + PIN)
+    characters/
+      page.tsx               # Lista de personajes del usuario
+      new/page.tsx           # Wizard de creación
+      [id]/page.tsx          # Hoja de personaje
+    wiki/page.tsx            # Wiki con buscador
+    page.tsx                 # Home (módulos)
+    globals.css              # Tokens Tailwind v4 (@theme)
+    sw.ts                    # Service worker (Serwist)
   components/
-    LocaleSwitcher.tsx  # cambio EN/ES
-  i18n/
-    config.ts           # locales soportados (en, es)
-    request.ts          # getRequestConfig (locale desde cookie)
-    locale.ts           # server actions get/set locale
+    AppHeader.tsx            # Header principal (sticky, safe-area)
+    SubHeader.tsx            # Header interior (← volver + logo/acción)
+    HomeContent.tsx          # Home con módulos
+    CharacterSheetClient.tsx # Hoja de personaje (banner, stats, cartas)
+    CharacterPageClient.tsx  # Wrapper con CTA "Subir Nivel"
+    CharacterListClient.tsx  # Lista + CTA "Crear personaje"
+    LevelUpFlow.tsx          # Flujo de subida de nivel (5 pasos)
+    WikiContent.tsx          # Wiki: buscador + filtros + grid de cards
+    wizard/
+      CharacterWizard.tsx    # Orquestador del wizard (8 pasos)
+      Step*.tsx              # Un componente por paso
+    ui/
+      AppDialog.tsx          # Dialogo de confirmación (bottom-sheet)
+      BottomSheet.tsx        # Sheet genérico desde abajo
   lib/
-    supabase/           # clientes browser + server
+    auth/                    # Sessions JWT (jose)
+    characters/actions.ts    # Server actions (createCharacter, levelUp…)
     daggerheart/
-      types.ts          # modelo de personaje
-      reference.ts      # listas canónicas del SRD (clases, dominios, etc.)
-messages/
-  en.json  es.json      # traducciones
+      types.ts               # Character, TraitKey, etc.
+      reference.ts           # Listas canónicas del juego
+      classes.ts             # Definición de clases y subclases
+      equipment.ts           # Armas y armaduras
+      cards.ts               # Cartas de dominio
+  i18n/
+    locales/en.json          # Traducciones inglés
+    locales/es.json          # Traducciones español
 public/
+  art/
+    *.jpg                    # Arte de clases (extraído del CoreBook)
+    ancestry/*.jpg           # Arte de ascendencias
+    community/*.jpg          # Arte de comunidades
+    domains/*.jpg            # Arte de dominios
+    cards/*.jpg              # Arte individual de cartas de dominio (27 cartas)
+  logo-sm.png
   manifest.webmanifest
+.github/
+  workflows/deploy.yml       # CI/CD → Vercel (push a main/master)
 ```
 
 ---
 
-## Modelo de Daggerheart (resumen)
+## Deploy
 
-La hoja de personaje se compone de cinco piezas que se eligen al crear:
+El deploy es automático vía **GitHub Actions** en cada push a `main` o `master`.
 
-1. **Ancestry** (ascendencia / "raza") — 18 opciones, otorga 2 rasgos de ascendencia.
-2. **Community** (comunidad / origen) — 9 opciones, otorga 1 rasgo de comunidad.
-3. **Class** (clase) — 9: Bard, Druid, Guardian, Ranger, Rogue, Seraph, Sorcerer, Warrior, Wizard.
-4. **Subclass** (subclase) — Foundation → Specialization → Mastery.
-5. **Domains** (dominios) — cada clase usa 2 de los 9: Arcana, Blade, Bone, Codex, Grace,
-   Midnight, Sage, Splendor, Valor. De ahí se roban las **domain cards** (habilidades y conjuros).
+```
+git push main
+  → GitHub Actions
+    → vercel pull --environment=production   (env vars desde Vercel)
+    → vercel build --prod
+    → vercel deploy --prebuilt --prod
+      → grimheart.co ✓
+```
 
-Otros componentes de la hoja:
+**Secrets necesarios en GitHub** (`Settings → Secrets → Actions`):
 
-- **Traits** (6): Agility, Strength, Finesse, Instinct, Presence, Knowledge.
-- **Stats derivados**: Evasion, HP, Stress, Hope, Armor Score, Proficiency, thresholds.
-- **Domain cards**: _loadout_ activo (hasta 5) + _vault_ (reserva).
-- **Experiences**, **trasfondo** (preguntas) y **connections**.
-- **Equipamiento**: arma primaria/secundaria, armadura e ítems.
-- **Niveles 1–10** en 4 _tiers_ (1 · 2-4 · 5-7 · 8-10) que abren las opciones de subida.
+| Secret | Dónde obtenerlo |
+|---|---|
+| `VERCEL_TOKEN` | vercel.com/account/tokens |
+| `VERCEL_ORG_ID` | `.vercel/project.json` tras `vercel link` |
+| `VERCEL_PROJECT_ID` | `.vercel/project.json` tras `vercel link` |
 
-Las cifras de juego salen del SRD oficial: <https://www.daggerheart.com/srd/>
+**DNS en GoDaddy** (`grimheart.co`):
+
+| Tipo | Nombre | Valor |
+|---|---|---|
+| `A` | `@` | `76.76.21.21` |
+| `CNAME` | `www` | `cname.vercel-dns.com` |
 
 ---
 
-## Roadmap
+## Modelo de Daggerheart
 
-- [x] Scaffold Next.js 16 + Tailwind + i18n (EN/ES) + PWA + Supabase
-- [ ] Auth (registro / login con Supabase)
-- [ ] Esquema Postgres + RLS para personajes por usuario
-- [ ] Importar datos del SRD (clases, dominios, cartas, ascendencias, comunidades, equipo)
-- [ ] Asistente de creación de personaje (5 pasos)
-- [ ] Hoja de personaje interactiva (rasgos, HP/Stress/Hope, dados Hope & Fear)
-- [ ] Selector de cartas de dominio (loadout / vault)
-- [ ] Subida de nivel guiada por tier
-- [ ] Iconos PWA + tema visual estilo Daggerheart
+La hoja de personaje se compone de:
+
+1. **Ancestry** (ascendencia) — 18 opciones
+2. **Community** (comunidad) — 9 opciones
+3. **Class** (clase) — 9: Bard, Druid, Guardian, Ranger, Rogue, Seraph, Sorcerer, Warrior, Wizard
+4. **Subclass** — Foundation → Specialization → Mastery
+5. **Traits** (6): Agility, Strength, Finesse, Instinct, Presence, Knowledge
+6. **Domain Cards** — loadout activo de 2 cartas de los 9 dominios (Arcana, Blade, Bone, Codex, Grace, Midnight, Sage, Splendor, Valor)
+7. **Equipment** — arma primaria/secundaria (15 físicas + 10 mágicas), armadura
+8. **Experiences** — 2 experiencias con modificador
+9. **Niveles 1–10** en 4 tiers → cada nivel desbloquea logros y 2 avances a elegir
 
 ---
 
 ## Licencia
 
-Código bajo licencia del repositorio. El contenido de juego pertenece a Darrington Press y se usa
-conforme a la DPCGL. Ver <https://www.daggerheart.com/>.
+Código bajo licencia MIT. El contenido de juego (reglas, nombres, ilustraciones del CoreBook) pertenece a Darrington Press y se usa conforme a la **DPCGL**. Ver <https://www.daggerheart.com/>.
