@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { cookies } from "next/headers";
 import { Geist, Geist_Mono, Cinzel } from "next/font/google";
 import { I18nProvider } from "@/i18n/I18nProvider";
+import { DevSwKiller } from "@/components/DevSwKiller";
 import { LANG_COOKIE, normalizeLocale } from "@/i18n/config";
 import en from "@/i18n/locales/en.json";
 import es from "@/i18n/locales/es.json";
@@ -47,6 +48,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${cinzel.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <DevSwKiller />
         <I18nProvider initialLanguage={lang}>{children}</I18nProvider>
       </body>
     </html>
