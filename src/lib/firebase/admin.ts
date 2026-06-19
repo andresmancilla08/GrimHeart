@@ -10,10 +10,8 @@ import {
 import { getFirestore, type Firestore } from "firebase-admin/firestore";
 
 /**
- * Writes the Vercel OIDC token + WIF config to /tmp so that
- * applicationDefault() can exchange them for a GCP access token.
- * No service-account key required — works via Workload Identity Federation.
- * Requires Vercel Pro or Enterprise (VERCEL_OIDC_TOKEN is auto-injected).
+ * Priority 1 (Vercel Pro): Workload Identity Federation via Vercel OIDC.
+ * VERCEL_OIDC_TOKEN is auto-injected on Pro/Enterprise; not available on Hobby.
  */
 function setupWIF(): boolean {
   const oidcToken = process.env.VERCEL_OIDC_TOKEN;
@@ -38,6 +36,27 @@ function setupWIF(): boolean {
   }
 }
 
+/**
+ * Priority 2 (Vercel Hobby): GCP Application Default Credentials JSON stored
+ * as a Vercel secret (GOOGLE_APPLICATION_CREDENTIALS_JSON).
+ * Set it manually: cat ~/.config/gcloud/application_default_credentials.json
+ * then paste the JSON as the env var value in Vercel dashboard.
+ */
+function setupADCJson(): boolean {
+  const credsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+  if (!credsJson) return false;
+
+  try {
+    const credsFile = "/tmp/gcp-adc-creds.json";
+    fs.writeFileSync(credsFile, credsJson);
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = credsFile;
+    return true;
+  } catch (err) {
+    console.error("[firebase/admin] ADC JSON setup failed:", err);
+    return false;
+  }
+}
+
 function getAdminApp(): App {
   const existing = getApps();
   if (existing.length) return existing[0];
@@ -54,9 +73,9 @@ function getAdminApp(): App {
     });
   }
 
-  // Production (Vercel Pro): keyless via Workload Identity Federation.
-  // Local dev: gcloud auth application-default login.
-  setupWIF();
+  // Keyless (Vercel Pro): WIF via OIDC. Fallback: ADC JSON secret (Hobby).
+  // Local dev: gcloud auth application-default login (no env var needed).
+  setupWIF() || setupADCJson();
   return initializeApp({
     credential: applicationDefault(),
     projectId: process.env.FIREBASE_PROJECT_ID,
