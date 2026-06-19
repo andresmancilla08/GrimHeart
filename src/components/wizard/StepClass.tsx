@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { CLASSES } from "@/lib/daggerheart/reference";
 import { CLASS_DEFS, SUBCLASS_DEFS } from "@/lib/daggerheart/classes";
@@ -51,6 +52,17 @@ const domainColors: Record<string, string> = {
 
 export function StepClass({ data, onChange }: Props) {
   const { t } = useTranslation();
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Scroll selected card into view whenever the class changes
+  useEffect(() => {
+    if (data.classKey) {
+      cardRefs.current[data.classKey]?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [data.classKey]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -67,6 +79,7 @@ export function StepClass({ data, onChange }: Props) {
             // div instead of <button> so nested <button> subclass pills are valid HTML
             <div
               key={key}
+              ref={(el) => { cardRefs.current[key] = el; }}
               role="radio"
               aria-checked={isSelected}
               tabIndex={0}
