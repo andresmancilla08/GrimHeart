@@ -414,6 +414,23 @@
       "close": "Close",
       "far": "Far",
       "veryFar": "V.Far"
+    },
+    "equipFeature": {
+      "reliable":   "Reliable: +1 to attack rolls",
+      "massive":    "Massive: −1 Evasion; extra damage die on hit (discard lowest)",
+      "heavy":      "Heavy: −1 to Evasion",
+      "quick":      "Quick: mark Stress to target another creature",
+      "cumbersome": "Cumbersome: −1 to Finesse",
+      "flexible":   "Flexible: +1 to Evasion",
+      "returning":  "Returning: returns to hand after attack",
+      "versatile":  "Versatile: also Presence/Melee/d8",
+      "powerful":   "Powerful: extra damage die (discard lowest)",
+      "paired":     "Paired: +2 to primary damage within Melee",
+      "protective": "Protective: +1 to Armor Score",
+      "barrier":    "Barrier: +2 Armor Score; −1 Evasion",
+      "startling":  "Startling: force adjacent foes to Close",
+      "hooked":     "Hooked: pull target to Melee on hit",
+      "veryHeavy":  "Very Heavy: −2 Evasion; −1 Agility"
     }
   }
 }

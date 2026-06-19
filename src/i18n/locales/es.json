@@ -414,6 +414,23 @@
       "close": "Cercano",
       "far": "Lejano",
       "veryFar": "Muy Lej."
+    },
+    "equipFeature": {
+      "reliable":   "Confiable: +1 a las tiradas de ataque",
+      "massive":    "Masivo: −1 Evasión; dado de daño extra al impactar (descarta el menor)",
+      "heavy":      "Pesado: −1 a Evasión",
+      "quick":      "Rápido: marca Estrés para elegir otra criatura como objetivo",
+      "cumbersome": "Voluminoso: −1 a Destreza",
+      "flexible":   "Flexible: +1 a Evasión",
+      "returning":  "Regresante: vuelve a la mano tras el ataque",
+      "versatile":  "Versátil: también Presencia/Cuerpo/d8",
+      "powerful":   "Poderoso: dado de daño extra (descarta el menor)",
+      "paired":     "Emparejado: +2 al daño principal en Cuerpo a cuerpo",
+      "protective": "Protector: +1 a Puntuación de Armadura",
+      "barrier":    "Barrera: +2 Armadura; −1 Evasión",
+      "startling":  "Perturbador: fuerza a los enemigos adyacentes a alejarse",
+      "hooked":     "Enganchado: atrae al objetivo a Cuerpo a cuerpo al impactar",
+      "veryHeavy":  "Muy Pesado: −2 Evasión; −1 Agilidad"
     }
   }
 }

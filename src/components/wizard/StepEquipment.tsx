@@ -113,8 +113,8 @@ function WeaponCard({
       </div>
 
       {/* Row 3: feature */}
-      {weapon.feature && (
-        <p className="text-[11px] leading-snug text-gold/55">★ {weapon.feature}</p>
+      {weapon.featureKey && (
+        <p className="text-[11px] leading-snug text-gold/55">★ {t(`dh.equipFeature.${weapon.featureKey}`)}</p>
       )}
 
       {/* Row 4: spellcast warning */}
@@ -176,8 +176,8 @@ function ArmorCard({
       </div>
 
       {/* Row 3: feature */}
-      {armor.feature && (
-        <p className="text-[11px] leading-snug text-gold/55">★ {armor.feature}</p>
+      {armor.featureKey && (
+        <p className="text-[11px] leading-snug text-gold/55">★ {t(`dh.equipFeature.${armor.featureKey}`)}</p>
       )}
     </button>
   );

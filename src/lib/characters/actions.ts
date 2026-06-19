@@ -33,11 +33,11 @@ export async function createCharacter(input: CreateCharacterInput): Promise<{ id
 
   // Derive stats from chosen class + equipment
   let evasion = classDef.evasion;
-  if (armor?.feature?.includes("Flexible")) evasion += 1;
-  if (armor?.feature?.includes("Heavy: −1")) evasion -= 1;
-  if (armor?.feature?.includes("Very Heavy")) evasion -= 2;
-  if (primaryWeapon?.feature?.includes("Massive")) evasion -= 1;
-  if (primaryWeapon?.feature?.includes("Heavy: −1")) evasion -= 1;
+  if (armor?.featureKey === "flexible")  evasion += 1;
+  if (armor?.featureKey === "heavy")     evasion -= 1;
+  if (armor?.featureKey === "veryHeavy") evasion -= 2;
+  if (primaryWeapon?.featureKey === "massive") evasion -= 1;
+  if (primaryWeapon?.featureKey === "heavy")   evasion -= 1;
 
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
