@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { PRIMARY_WEAPONS, SECONDARY_WEAPONS, ARMORS } from "@/lib/daggerheart/equipment";
 import { SUBCLASS_DEFS } from "@/lib/daggerheart/classes";
+import type { WeaponDef, ArmorDef, WeaponRange } from "@/lib/daggerheart/equipment";
+import type { TraitKey } from "@/lib/daggerheart/types";
 import type { WizardData } from "./types";
 
 interface Props {
@@ -11,53 +13,170 @@ interface Props {
   onChange: (patch: Partial<WizardData>) => void;
 }
 
-function WeaponRow({
-  name, trait, range, damage, burden, dmgType, feature, requiresSpellcast, selected, disabled, onSelect, t,
+// ── Design tokens ─────────────────────────────────────────────────────────────
+
+const TRAIT_BADGE: Record<TraitKey, string> = {
+  agility:   "border-cyan-500/40 bg-cyan-950/50 text-cyan-300",
+  strength:  "border-amber-500/40 bg-amber-950/50 text-amber-300",
+  finesse:   "border-violet-500/40 bg-violet-950/50 text-violet-300",
+  instinct:  "border-emerald-500/40 bg-emerald-950/50 text-emerald-300",
+  presence:  "border-pink-500/40 bg-pink-950/50 text-pink-300",
+  knowledge: "border-blue-500/40 bg-blue-950/50 text-blue-300",
+};
+
+const RANGE_ICON: Record<WeaponRange, string> = {
+  melee:    "⚔",
+  veryClose:"↕",
+  close:    "◎",
+  far:      "◈",
+  veryFar:  "◈◈",
+};
+
+const SECTION_ICON = { primary: "⚔", secondary: "✦", armor: "⬡" } as const;
+
+const SELECTED_SHADOW = "shadow-[0_0_0_1px_rgba(217,164,65,0.25),0_8px_24px_-8px_rgba(217,164,65,0.35)]";
+const SELECTED_CLASSES = `border-gold/60 bg-gold/[0.06] ${SELECTED_SHADOW}`;
+const DEFAULT_CLASSES   = "border-border bg-surface-2/30 hover:border-border-strong";
+const DISABLED_CLASSES  = "cursor-not-allowed border-border/20 opacity-30";
+
+// ── Sub-components ─────────────────────────────────────────────────────────────
+
+function SelectedMark() {
+  return (
+    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold shadow-[0_0_10px_rgba(217,164,65,0.55)]">
+      <span className="text-[9px] font-bold text-[#2a1d05]">✓</span>
+    </span>
+  );
+}
+
+function WeaponCard({
+  weapon, selected, disabled, onSelect, index,
 }: {
-  name: string; trait: string; range: string; damage: string;
-  burden: "oneHanded" | "twoHanded"; dmgType: "phy" | "mag";
-  feature?: string; requiresSpellcast?: boolean;
-  selected: boolean; disabled: boolean;
-  onSelect: () => void;
-  t: (k: string) => string;
+  weapon: WeaponDef; selected: boolean; disabled: boolean;
+  onSelect: () => void; index: number;
 }) {
+  const { t } = useTranslation();
+
   return (
     <button
       type="button"
       onClick={onSelect}
       disabled={disabled}
-      className={`flex flex-col gap-1.5 rounded-xl border p-3.5 text-left transition active:scale-[0.99] ${
-        selected
-          ? "border-gold bg-gold/[0.07] shadow-[0_0_0_1px_rgba(217,164,65,0.3)]"
-          : disabled
-          ? "cursor-not-allowed border-border/30 opacity-35"
-          : "border-border bg-surface-2/30 hover:border-border-strong"
-      }`}
+      aria-pressed={selected}
+      style={{ animationDelay: `${index * 30}ms` }}
+      className={[
+        "dh-rise flex flex-col gap-2.5 rounded-2xl border p-4 text-left",
+        "transition-all duration-150",
+        "active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
+        selected ? SELECTED_CLASSES : disabled ? DISABLED_CLASSES : DEFAULT_CLASSES,
+      ].join(" ")}
     >
-      <div className="flex items-start justify-between gap-2">
-        <span className="font-display text-sm font-semibold text-foreground">{name}</span>
-        {selected && (
-          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold text-[10px] font-bold text-[#2a1d05]">✓</span>
-        )}
-      </div>
-      <div className="flex flex-wrap gap-1.5 text-[11px]">
-        <span className="rounded bg-surface px-1.5 py-0.5 text-muted capitalize">{trait}</span>
-        <span className="rounded bg-surface px-1.5 py-0.5 text-muted">{range}</span>
-        <span className="rounded bg-surface px-1.5 py-0.5 font-mono text-foreground/80">{damage}</span>
-        <span className={`rounded px-1.5 py-0.5 ${dmgType === "mag" ? "bg-purple-900/30 text-purple-300" : "bg-stone-800/40 text-stone-300"}`}>
-          {dmgType === "mag" ? t("wizard.equipment.magic") : t("wizard.equipment.physical")}
-        </span>
-        <span className="rounded bg-surface px-1.5 py-0.5 text-muted">
-          {t(burden === "oneHanded" ? "wizard.equipment.oneHanded" : "wizard.equipment.twoHanded")}
+      {/* Row 1: name + damage die */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2">
+          {selected && <SelectedMark />}
+          <span className="font-display text-sm font-semibold leading-snug text-foreground truncate">
+            {weapon.name}
+          </span>
+        </div>
+        <span className="shrink-0 rounded-lg border border-gold/30 bg-gold/[0.08] px-2.5 py-1 font-mono text-sm font-bold tabular-nums text-gold">
+          {weapon.damage}
         </span>
       </div>
-      {feature && <p className="text-[11px] italic text-muted/80">{feature}</p>}
-      {requiresSpellcast && (
-        <p className="text-[11px] text-fear-bright">{t("wizard.equipment.spellcastRequired")}</p>
+
+      {/* Row 2: stat badges */}
+      <div className="flex flex-wrap gap-1.5">
+        <span className={`rounded-md border px-2 py-0.5 text-[10px] font-medium ${TRAIT_BADGE[weapon.trait]}`}>
+          {t(`dh.trait.${weapon.trait}`)}
+        </span>
+        <span className="rounded-md border border-stone-600/35 bg-stone-900/40 px-2 py-0.5 text-[10px] text-stone-300">
+          {RANGE_ICON[weapon.range]} {t(`dh.rangeShort.${weapon.range}`)}
+        </span>
+        <span className={`rounded-md border px-2 py-0.5 text-[10px] font-medium ${
+          weapon.dmgType === "mag"
+            ? "border-violet-500/40 bg-violet-950/50 text-violet-300"
+            : "border-stone-500/30 bg-stone-900/30 text-stone-400"
+        }`}>
+          {weapon.dmgType === "mag" ? "✦ " : "⚔ "}
+          {t(weapon.dmgType === "mag" ? "wizard.equipment.magic" : "wizard.equipment.physical")}
+        </span>
+        <span className="rounded-md border border-border/60 bg-surface/40 px-2 py-0.5 text-[10px] text-muted">
+          {t(weapon.burden === "oneHanded" ? "wizard.equipment.oneHandedShort" : "wizard.equipment.twoHandedShort")}
+        </span>
+      </div>
+
+      {/* Row 3: feature */}
+      {weapon.feature && (
+        <p className="text-[11px] leading-snug text-gold/55">★ {weapon.feature}</p>
+      )}
+
+      {/* Row 4: spellcast warning */}
+      {weapon.requiresSpellcast && (
+        <p className="text-[11px] text-fear-bright">✦ {t("wizard.equipment.spellcastRequired")}</p>
       )}
     </button>
   );
 }
+
+function ArmorCard({
+  armor, selected, onSelect, index,
+}: {
+  armor: ArmorDef; selected: boolean; onSelect: () => void; index: number;
+}) {
+  const { t } = useTranslation();
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      style={{ animationDelay: `${index * 30}ms` }}
+      className={[
+        "dh-rise flex flex-col gap-2.5 rounded-2xl border p-4 text-left",
+        "transition-all duration-150",
+        "active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
+        selected ? SELECTED_CLASSES : DEFAULT_CLASSES,
+      ].join(" ")}
+    >
+      {/* Row 1: name + score */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2 pt-1">
+          {selected && <SelectedMark />}
+          <span className="font-display text-sm font-semibold leading-snug text-foreground">
+            {armor.name}
+          </span>
+        </div>
+        {/* Score badge */}
+        <div className="flex shrink-0 flex-col items-center rounded-xl border border-gold/30 bg-gold/[0.08] px-3 py-1.5">
+          <span className="font-mono text-xl font-bold leading-none text-gold">{armor.score}</span>
+          <span className="mt-0.5 text-[8px] font-medium uppercase tracking-wider text-gold/60">
+            {t("wizard.equipment.score")}
+          </span>
+        </div>
+      </div>
+
+      {/* Row 2: damage thresholds */}
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] text-muted">{t("wizard.equipment.thresholds")}</span>
+        <div className="flex gap-1.5">
+          <span className="rounded-md border border-amber-500/40 bg-amber-950/50 px-2 py-0.5 text-[10px] font-bold text-amber-300">
+            {armor.minorThreshold} {t("wizard.equipment.minor")}
+          </span>
+          <span className="rounded-md border border-red-500/40 bg-red-950/50 px-2 py-0.5 text-[10px] font-bold text-red-300">
+            {armor.severeThreshold} {t("wizard.equipment.severe")}
+          </span>
+        </div>
+      </div>
+
+      {/* Row 3: feature */}
+      {armor.feature && (
+        <p className="text-[11px] leading-snug text-gold/55">★ {armor.feature}</p>
+      )}
+    </button>
+  );
+}
+
+// ── Main component ─────────────────────────────────────────────────────────────
 
 export function StepEquipment({ data, onChange }: Props) {
   const { t } = useTranslation();
@@ -70,122 +189,126 @@ export function StepEquipment({ data, onChange }: Props) {
   const selectedPrimary = PRIMARY_WEAPONS.find((w) => w.id === data.primaryWeaponId);
   const primaryIsOneHanded = selectedPrimary?.burden === "oneHanded";
 
-  const rangeLabel = (r: string) => t(`dh.rangeLabel.${r}`);
-
-  const sections: Array<{ key: "primary" | "secondary" | "armor"; label: string; disabled?: boolean }> = [
-    { key: "primary", label: t("wizard.equipment.primaryLabel") },
-    { key: "secondary", label: t("wizard.equipment.secondaryLabel"), disabled: !primaryIsOneHanded },
-    { key: "armor", label: t("wizard.equipment.armorLabel") },
+  const sections = [
+    { key: "primary"   as const, label: t("wizard.equipment.primaryShort"),   icon: SECTION_ICON.primary,   disabled: false },
+    { key: "secondary" as const, label: t("wizard.equipment.secondaryShort"),  icon: SECTION_ICON.secondary, disabled: !primaryIsOneHanded },
+    { key: "armor"     as const, label: t("wizard.equipment.armorLabel"),      icon: SECTION_ICON.armor,     disabled: false },
   ];
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Section tabs */}
-      <div className="flex rounded-xl border border-border bg-surface-2/30 p-1 gap-1">
+      {/* ── Tab switcher ─────────────────────────────────────────────────── */}
+      <div className="flex gap-1 rounded-2xl border border-border bg-surface-2/30 p-1.5">
         {sections.map((s) => (
           <button
             key={s.key}
             type="button"
             disabled={s.disabled}
-            onClick={() => setSection(s.key)}
-            className={`flex-1 rounded-lg py-2 text-xs font-medium transition ${
+            onClick={() => !s.disabled && setSection(s.key)}
+            className={[
+              "relative flex min-h-[44px] flex-1 flex-col items-center justify-center gap-0.5 rounded-xl px-2 py-2",
+              "transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
               section === s.key
-                ? "bg-gold/10 text-gold"
+                ? "bg-gold/[0.08] text-gold"
                 : s.disabled
-                ? "cursor-not-allowed text-muted/30"
-                : "text-muted hover:text-foreground"
-            }`}
+                ? "cursor-not-allowed text-muted/25"
+                : "text-muted hover:text-foreground",
+            ].join(" ")}
           >
-            {s.label}
+            <span className="text-base leading-none" aria-hidden>{s.icon}</span>
+            <span className="text-[10px] font-medium leading-none">{s.label}</span>
+            {section === s.key && (
+              <span className="absolute bottom-1.5 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-gold" />
+            )}
           </button>
         ))}
       </div>
 
-      {/* Primary weapons */}
+      {/* ── Primary weapons ───────────────────────────────────────────────── */}
       {section === "primary" && (
         <div className="flex flex-col gap-2">
-          {PRIMARY_WEAPONS.map((w) => (
-            <WeaponRow
+          {PRIMARY_WEAPONS.map((w, i) => (
+            <WeaponCard
               key={w.id}
-              {...w}
-              range={rangeLabel(w.range)}
+              weapon={w}
+              index={i}
               selected={data.primaryWeaponId === w.id}
               disabled={!hasSpellcast && w.requiresSpellcast === true}
-              onSelect={() => onChange({ primaryWeaponId: w.id, secondaryWeaponId: w.burden === "twoHanded" ? null : data.secondaryWeaponId })}
-              t={t}
+              onSelect={() => onChange({
+                primaryWeaponId: w.id,
+                secondaryWeaponId: w.burden === "twoHanded" ? null : data.secondaryWeaponId,
+              })}
             />
           ))}
         </div>
       )}
 
-      {/* Secondary weapons */}
+      {/* ── Secondary weapons ─────────────────────────────────────────────── */}
       {section === "secondary" && primaryIsOneHanded && (
         <div className="flex flex-col gap-2">
           <p className="text-xs text-muted">{t("wizard.equipment.secondaryHint")}</p>
+          {/* "None" option */}
           <button
             type="button"
             onClick={() => onChange({ secondaryWeaponId: null })}
-            className={`rounded-xl border p-3.5 text-left text-sm transition ${
+            aria-pressed={data.secondaryWeaponId === null}
+            className={[
+              "dh-rise rounded-2xl border py-4 text-center text-sm font-medium",
+              "transition-all duration-150 active:scale-[0.985]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
               data.secondaryWeaponId === null
-                ? "border-gold bg-gold/[0.07]"
-                : "border-border bg-surface-2/30"
-            }`}
+                ? `${SELECTED_CLASSES} text-gold`
+                : "border-border/50 border-dashed text-muted hover:border-border-strong hover:text-foreground",
+            ].join(" ")}
           >
+            {data.secondaryWeaponId === null && "✓ "}
             {t("wizard.equipment.noSecondary")}
           </button>
-          {SECONDARY_WEAPONS.map((w) => (
-            <WeaponRow
+          {SECONDARY_WEAPONS.map((w, i) => (
+            <WeaponCard
               key={w.id}
-              {...w}
-              range={rangeLabel(w.range)}
+              weapon={w}
+              index={i + 1}
               selected={data.secondaryWeaponId === w.id}
               disabled={false}
               onSelect={() => onChange({ secondaryWeaponId: w.id })}
-              t={t}
             />
           ))}
         </div>
       )}
 
-      {/* Armor */}
+      {/* ── Armor ─────────────────────────────────────────────────────────── */}
       {section === "armor" && (
         <div className="flex flex-col gap-2">
+          {/* "No armor" option */}
           <button
             type="button"
             onClick={() => onChange({ armorId: null })}
-            className={`rounded-xl border p-3.5 text-left transition ${
+            aria-pressed={data.armorId === null}
+            className={[
+              "dh-rise rounded-2xl border px-4 py-4 text-center",
+              "transition-all duration-150 active:scale-[0.985]",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
               data.armorId === null
-                ? "border-gold bg-gold/[0.07]"
-                : "border-border bg-surface-2/30"
-            }`}
+                ? SELECTED_CLASSES
+                : "border-border/50 border-dashed bg-transparent hover:border-border-strong",
+            ].join(" ")}
           >
-            <p className="text-sm font-semibold text-foreground">{t("wizard.equipment.noArmor")}</p>
+            <p className={`text-sm font-semibold ${data.armorId === null ? "text-gold" : "text-muted"}`}>
+              {data.armorId === null && "✓ "}
+              {t("wizard.equipment.noArmor")}
+            </p>
             <p className="mt-1 text-xs text-muted">{t("wizard.equipment.noArmorHint")}</p>
           </button>
-          {ARMORS.map((a) => (
-            <button
-              key={a.id}
-              type="button"
-              onClick={() => onChange({ armorId: a.id })}
-              className={`flex flex-col gap-1.5 rounded-xl border p-3.5 text-left transition active:scale-[0.99] ${
-                data.armorId === a.id
-                  ? "border-gold bg-gold/[0.07] shadow-[0_0_0_1px_rgba(217,164,65,0.3)]"
-                  : "border-border bg-surface-2/30 hover:border-border-strong"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-display text-sm font-semibold text-foreground">{a.name}</span>
-                {data.armorId === a.id && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[10px] font-bold text-[#2a1d05]">✓</span>
-                )}
-              </div>
-              <div className="flex gap-2 text-[11px]">
-                <span className="text-muted">{t("wizard.equipment.score")} {a.score}</span>
-                <span className="text-muted">{t("wizard.equipment.thresholds")} {a.minorThreshold}/{a.severeThreshold}</span>
-              </div>
-              {a.feature && <p className="text-[11px] italic text-muted/80">{a.feature}</p>}
 
-            </button>
+          {ARMORS.map((a, i) => (
+            <ArmorCard
+              key={a.id}
+              armor={a}
+              index={i + 1}
+              selected={data.armorId === a.id}
+              onSelect={() => onChange({ armorId: a.id })}
+            />
           ))}
         </div>
       )}

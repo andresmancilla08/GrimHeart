@@ -152,7 +152,14 @@
       "score": "Score",
       "thresholds": "Thresholds",
       "noSecondary": "— None (skip secondary)",
-      "noArmorHint": "Requires the Bare Bones card (Valor domain)"
+      "noArmorHint": "Requires the Bare Bones card (Valor domain)",
+      "minor": "Minor",
+      "severe": "Severe",
+      "primaryShort": "Primary",
+      "secondaryShort": "Secondary",
+      "burden": "Burden",
+      "oneHandedShort": "1H",
+      "twoHandedShort": "2H"
     },
     "background": {
       "title": "Your Experiences",
@@ -398,6 +405,13 @@
       "close": "Close",
       "far": "Far",
       "veryFar": "Very Far"
+    },
+    "rangeShort": {
+      "melee": "Melee",
+      "veryClose": "V.Close",
+      "close": "Close",
+      "far": "Far",
+      "veryFar": "V.Far"
     }
   }
 }

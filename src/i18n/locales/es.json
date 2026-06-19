@@ -152,7 +152,14 @@
       "score": "Puntuación",
       "thresholds": "Umbrales",
       "noSecondary": "— Ninguna (omitir secundaria)",
-      "noArmorHint": "Requiere la carta Huesos al Aire (dominio Valor)"
+      "noArmorHint": "Requiere la carta Huesos al Aire (dominio Valor)",
+      "minor": "Leve",
+      "severe": "Grave",
+      "primaryShort": "Principal",
+      "secondaryShort": "Secundaria",
+      "burden": "Carga",
+      "oneHandedShort": "1M",
+      "twoHandedShort": "2M"
     },
     "background": {
       "title": "Tus Experiencias",
@@ -398,6 +405,13 @@
       "close": "Cercano",
       "far": "Lejano",
       "veryFar": "Muy Lejano"
+    },
+    "rangeShort": {
+      "melee": "Cuerpo",
+      "veryClose": "Muy Cer.",
+      "close": "Cercano",
+      "far": "Lejano",
+      "veryFar": "Muy Lej."
     }
   }
 }
