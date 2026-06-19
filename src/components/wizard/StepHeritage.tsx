@@ -171,15 +171,21 @@ export function StepHeritage({ data, onChange }: Props) {
   const communityRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
-    if (data.ancestryKey) {
-      ancestryRefs.current[data.ancestryKey]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
+    if (!data.ancestryKey) return;
+    const key = data.ancestryKey;
+    const t = setTimeout(() => {
+      ancestryRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 100);
+    return () => clearTimeout(t);
   }, [data.ancestryKey]);
 
   useEffect(() => {
-    if (data.communityKey) {
-      communityRefs.current[data.communityKey]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
+    if (!data.communityKey) return;
+    const key = data.communityKey;
+    const t = setTimeout(() => {
+      communityRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 100);
+    return () => clearTimeout(t);
   }, [data.communityKey]);
 
   return (

@@ -54,14 +54,14 @@ export function StepClass({ data, onChange }: Props) {
   const { t } = useTranslation();
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // Scroll selected card into view whenever the class changes
+  // Scroll selected card into view after expansion animation completes (260ms)
   useEffect(() => {
-    if (data.classKey) {
-      cardRefs.current[data.classKey]?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-      });
-    }
+    if (!data.classKey) return;
+    const key = data.classKey;
+    const t = setTimeout(() => {
+      cardRefs.current[key]?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 280);
+    return () => clearTimeout(t);
   }, [data.classKey]);
 
   return (
