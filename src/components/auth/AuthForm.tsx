@@ -25,7 +25,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const canSubmit = !usernameErr && username.length > 0 && pin.length === 4;
 
   return (
-    <form action={formAction} className="flex flex-col gap-5">
+    <form action={formAction} className="flex flex-col gap-4">
       {state.error && (
         <p
           role="alert"
@@ -55,9 +55,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
             usernameErr ? "border-danger/70" : "border-border"
           }`}
         />
-        <p className={`text-xs ${usernameErr ? "text-danger" : "text-muted"}`}>
-          {usernameErr ? t(usernameErr.replace("auth.", "")) : t("usernameHint")}
-        </p>
+        {usernameErr && (
+          <p className="text-xs text-danger">{t(usernameErr.replace("auth.", ""))}</p>
+        )}
       </div>
 
       {/* PIN */}
@@ -71,7 +71,6 @@ export function AuthForm({ mode }: { mode: Mode }) {
           invalid={state.field === "pin"}
           ariaLabel={t("pin")}
         />
-        <p className="text-xs text-muted">{t("pinHint")}</p>
       </div>
 
       <button
