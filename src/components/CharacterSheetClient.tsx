@@ -23,9 +23,9 @@ export function CharacterSheetClient({ character: c, onLevelUp }: Props) {
   const traits = Object.entries(c.traits) as [TraitKey, number][];
 
   return (
-    <div className="dh-rise flex flex-col gap-5">
+    <div className="dh-rise flex flex-col gap-5 px-5">
       {/* ── Banner de clase ── */}
-      <div className="relative -mx-5 -mt-6 h-56 overflow-hidden">
+      <div className="relative -mx-5 h-52 overflow-hidden">
         <Image
           src={`/art/${c.classKey}.jpg`}
           alt=""
@@ -61,8 +61,8 @@ export function CharacterSheetClient({ character: c, onLevelUp }: Props) {
         </div>
       </div>
 
-      {/* Wrapper con padding horizontal */}
-      <div className="flex flex-col gap-5 px-5 pb-6">
+      {/* Content sections */}
+      <div className="flex flex-col gap-5 pb-6">
         {/* ── Stats ── */}
         <div className="grid grid-cols-5 gap-2">
           {[
