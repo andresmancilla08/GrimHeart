@@ -21,7 +21,7 @@ export function CharacterPageClient({ character }: Props) {
 
       {/* Fixed bottom CTA — level up */}
       {canLevelUp && (
-        <div className="fixed bottom-0 left-0 right-0 z-20 px-5 pt-4 pb-safe bg-gradient-to-t from-background via-background/90 to-transparent">
+        <div className="fixed bottom-0 left-0 right-0 z-20 px-5 pt-8 pb-safe bg-gradient-to-t from-background via-background/90 to-transparent">
           <button
             type="button"
             onClick={() => setLevelUpOpen(true)}

@@ -87,7 +87,7 @@ export function HomeContent({ username }: { username: string }) {
       </main>
 
       {/* Fixed bottom CTA */}
-      <div className="z-10 shrink-0 px-5 pt-3" style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}>
+      <div className="z-10 shrink-0 px-5 pt-6" style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}>
         <Link
           href="/characters/new"
           className="flex h-14 items-center justify-center rounded-full bg-gradient-to-b from-gold-bright to-gold font-semibold text-[#2a1d05] shadow-[0_6px_24px_-8px_rgba(217,164,65,0.7)] transition hover:brightness-105 active:scale-[0.99]"
