@@ -5,7 +5,7 @@ import { adminDb } from "@/lib/firebase/admin";
 import { getSession } from "@/lib/auth/session";
 import { CLASS_DEFS, type SubclassKey } from "@/lib/daggerheart/classes";
 import { ARMOR_BY_ID, WEAPONS_BY_ID } from "@/lib/daggerheart/equipment";
-import type { Character, ClassKey, AncestryKey, CommunityKey, CharacterTraits, TraitKey } from "@/lib/daggerheart/types";
+import type { Character, ClassKey, AncestryKey, CommunityKey, CharacterTraits, TraitKey, JournalEntry } from "@/lib/daggerheart/types";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -201,6 +201,84 @@ export async function deleteCharacter(id: string): Promise<{ ok: true } | { erro
     .delete();
 
   revalidatePath("/characters");
+  return { ok: true };
+}
+
+// ── Journal (campaign log) ────────────────────────────────────────────────
+
+async function journalRef(characterId: string) {
+  const session = await getSession();
+  if (!session) return null;
+  return adminDb()
+    .collection("users")
+    .doc(session.uid)
+    .collection("characters")
+    .doc(characterId);
+}
+
+export async function addJournalEntry(
+  characterId: string,
+  input: { title?: string; body: string },
+): Promise<{ ok: true } | { error: string }> {
+  const body = input.body?.trim();
+  if (!body) return { error: "journal.errors.empty" };
+
+  const ref = await journalRef(characterId);
+  if (!ref) return { error: "auth.errors.unknown" };
+  const doc = await ref.get();
+  if (!doc.exists) return { error: "character.errors.notFound" };
+
+  const now = new Date().toISOString();
+  const entry: JournalEntry = {
+    id: crypto.randomUUID(),
+    body,
+    createdAt: now,
+    ...(input.title?.trim() ? { title: input.title.trim() } : {}),
+  };
+
+  const journal = [...((doc.data() as Character).journal ?? []), entry];
+  await ref.update({ journal, updatedAt: now });
+  revalidatePath(`/characters/${characterId}/journal`);
+  return { ok: true };
+}
+
+export async function updateJournalEntry(
+  characterId: string,
+  entryId: string,
+  input: { title?: string; body: string },
+): Promise<{ ok: true } | { error: string }> {
+  const body = input.body?.trim();
+  if (!body) return { error: "journal.errors.empty" };
+
+  const ref = await journalRef(characterId);
+  if (!ref) return { error: "auth.errors.unknown" };
+  const doc = await ref.get();
+  if (!doc.exists) return { error: "character.errors.notFound" };
+
+  const now = new Date().toISOString();
+  const title = input.title?.trim();
+  const journal = ((doc.data() as Character).journal ?? []).map((e) =>
+    e.id === entryId
+      ? { id: e.id, body, createdAt: e.createdAt, updatedAt: now, ...(title ? { title } : {}) }
+      : e,
+  );
+  await ref.update({ journal, updatedAt: now });
+  revalidatePath(`/characters/${characterId}/journal`);
+  return { ok: true };
+}
+
+export async function deleteJournalEntry(
+  characterId: string,
+  entryId: string,
+): Promise<{ ok: true } | { error: string }> {
+  const ref = await journalRef(characterId);
+  if (!ref) return { error: "auth.errors.unknown" };
+  const doc = await ref.get();
+  if (!doc.exists) return { error: "character.errors.notFound" };
+
+  const journal = ((doc.data() as Character).journal ?? []).filter((e) => e.id !== entryId);
+  await ref.update({ journal, updatedAt: new Date().toISOString() });
+  revalidatePath(`/characters/${characterId}/journal`);
   return { ok: true };
 }
 

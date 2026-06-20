@@ -88,6 +88,15 @@ export interface Experience {
   modifier: number; // typically +2
 }
 
+/** A player-written log entry recording events of the character's story. */
+export interface JournalEntry {
+  id: string;
+  title?: string;
+  body: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
 export interface EquippedWeapon {
   id: string;
   slot: "primary" | "secondary";
@@ -136,6 +145,9 @@ export interface Character {
   // Background & connections (chosen during creation).
   backgroundAnswers: Record<string, string>;
   connections: string[];
+
+  // Player-written campaign log (newest first when displayed).
+  journal?: JournalEntry[];
 
   createdAt: string;
   updatedAt: string;

@@ -989,5 +989,27 @@
       "notFound": "Character not found.",
       "maxLevel": "This character is already at the maximum level."
     }
+  },
+  "journal": {
+    "title": "Journal",
+    "new": "New entry",
+    "newTitle": "New entry",
+    "editTitle": "Edit entry",
+    "fieldTitle": "Title (optional)",
+    "fieldTitlePlaceholder": "e.g. The forest ambush",
+    "fieldBody": "Entry",
+    "fieldBodyPlaceholder": "What happened in your story?",
+    "save": "Save",
+    "saving": "Saving...",
+    "delete": "Delete entry",
+    "deleteTitle": "Delete entry?",
+    "deleteDesc": "This entry will be permanently deleted.",
+    "deleteConfirm": "Yes, delete",
+    "deleting": "Deleting...",
+    "emptyTitle": "Your journal is empty",
+    "emptyDesc": "Record the events, sessions and key moments of your character's story.",
+    "errors": {
+      "empty": "The entry can't be empty."
+    }
   }
 }

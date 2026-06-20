@@ -989,5 +989,27 @@
       "notFound": "No se encontró el personaje.",
       "maxLevel": "El personaje ya está en el nivel máximo."
     }
+  },
+  "journal": {
+    "title": "Bitácora",
+    "new": "Nueva entrada",
+    "newTitle": "Nueva entrada",
+    "editTitle": "Editar entrada",
+    "fieldTitle": "Título (opcional)",
+    "fieldTitlePlaceholder": "Ej. La emboscada en el bosque",
+    "fieldBody": "Entrada",
+    "fieldBodyPlaceholder": "¿Qué ocurrió en tu historia?",
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "delete": "Eliminar entrada",
+    "deleteTitle": "¿Eliminar entrada?",
+    "deleteDesc": "Esta entrada se eliminará de forma permanente.",
+    "deleteConfirm": "Sí, eliminar",
+    "deleting": "Eliminando...",
+    "emptyTitle": "Tu bitácora está vacía",
+    "emptyDesc": "Registra los eventos, sesiones y momentos clave de la historia de tu personaje.",
+    "errors": {
+      "empty": "La entrada no puede estar vacía."
+    }
   }
 }

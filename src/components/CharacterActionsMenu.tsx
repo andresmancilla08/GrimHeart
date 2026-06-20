@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { IconDots, IconPencil, IconTrash } from "@tabler/icons-react";
+import { IconDots, IconPencil, IconTrash, IconBook } from "@tabler/icons-react";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { AppDialog } from "@/components/ui/AppDialog";
 import { deleteCharacter } from "@/lib/characters/actions";
@@ -52,6 +52,18 @@ export function CharacterActionsMenu({ character }: { character: Character }) {
           <h2 className="pb-1 text-center font-display text-lg font-semibold text-foreground">
             {character.name}
           </h2>
+
+          <button
+            type="button"
+            onClick={() => {
+              setMenuOpen(false);
+              router.push(`/characters/${character.id}/journal`);
+            }}
+            className="flex h-12 w-full items-center gap-3 rounded-2xl border border-border bg-surface-2/40 px-4 text-left text-foreground transition hover:border-border-strong active:scale-[0.99]"
+          >
+            <IconBook size={20} stroke={1.8} className="text-gold" />
+            <span className="font-medium">{t("journal.title")}</span>
+          </button>
 
           {canEdit ? (
             <button
