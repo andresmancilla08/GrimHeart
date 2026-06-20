@@ -83,7 +83,7 @@ function WeaponCard({
         <div className="flex min-w-0 items-center gap-2">
           {selected && <SelectedMark />}
           <span className="font-display text-sm font-semibold leading-snug text-foreground truncate">
-            {weapon.name}
+            {t(`equip.${weapon.id}.name`)}
           </span>
         </div>
         <span className="shrink-0 rounded-lg border border-gold/30 bg-gold/[0.08] px-2.5 py-1 font-mono text-sm font-bold tabular-nums text-gold">
@@ -150,7 +150,7 @@ function ArmorCard({
         <div className="flex min-w-0 items-center gap-2 pt-1">
           {selected && <SelectedMark />}
           <span className="font-display text-sm font-semibold leading-snug text-foreground">
-            {armor.name}
+            {t(`equip.${armor.id}.name`)}
           </span>
         </div>
         {/* Score badge */}
@@ -203,12 +203,12 @@ export function StepEquipment({ data, onChange }: Props) {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* ── Tab switcher ─────────────────────────────────────────────────── */}
+    <div className="flex h-full min-h-0 flex-col gap-4">
+      {/* ── Tab switcher (fixed) ─────────────────────────────────────────── */}
       <div
         role="tablist"
         aria-label={t("wizard.equipment.sectionsLabel")}
-        className="flex gap-1 rounded-2xl border border-border bg-surface-2/30 p-1.5"
+        className="shrink-0 flex gap-1 rounded-2xl border border-border bg-surface-2/30 p-1.5"
       >
         {sections.map((s) => (
           <button
@@ -245,8 +245,10 @@ export function StepEquipment({ data, onChange }: Props) {
         ))}
       </div>
 
+      {/* ── Scrollable area (banner + list scroll together; tabs stay fixed) ─ */}
+      <div className="-mx-1 flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-1 pb-1">
       {/* ── Section art banner ───────────────────────────────────────────── */}
-      <div className="relative h-[130px] overflow-hidden rounded-2xl">
+      <div className="relative h-[130px] shrink-0 overflow-hidden rounded-2xl">
         <Image
           key={section}
           src={SECTION_ART[section].src}
@@ -350,6 +352,7 @@ export function StepEquipment({ data, onChange }: Props) {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

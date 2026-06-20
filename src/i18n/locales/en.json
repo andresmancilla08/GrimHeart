@@ -1011,5 +1011,115 @@
     "errors": {
       "empty": "The entry can't be empty."
     }
+  },
+  "equip": {
+    "broadsword": {
+      "name": "Broadsword"
+    },
+    "longsword": {
+      "name": "Longsword"
+    },
+    "battleaxe": {
+      "name": "Battleaxe"
+    },
+    "greatsword": {
+      "name": "Greatsword"
+    },
+    "mace": {
+      "name": "Mace"
+    },
+    "warhammer": {
+      "name": "Warhammer"
+    },
+    "dagger": {
+      "name": "Dagger"
+    },
+    "quarterstaff": {
+      "name": "Quarterstaff"
+    },
+    "cutlass": {
+      "name": "Cutlass"
+    },
+    "rapier": {
+      "name": "Rapier"
+    },
+    "halberd": {
+      "name": "Halberd"
+    },
+    "spear": {
+      "name": "Spear"
+    },
+    "shortbow": {
+      "name": "Shortbow"
+    },
+    "crossbow": {
+      "name": "Crossbow"
+    },
+    "longbow": {
+      "name": "Longbow"
+    },
+    "arcane_gauntlets": {
+      "name": "Arcane Gauntlets"
+    },
+    "hallowed_axe": {
+      "name": "Hallowed Axe"
+    },
+    "glowing_rings": {
+      "name": "Glowing Rings"
+    },
+    "hand_runes": {
+      "name": "Hand Runes"
+    },
+    "returning_blade": {
+      "name": "Returning Blade"
+    },
+    "shortstaff": {
+      "name": "Shortstaff"
+    },
+    "dualstaff": {
+      "name": "Dualstaff"
+    },
+    "scepter": {
+      "name": "Scepter"
+    },
+    "wand": {
+      "name": "Wand"
+    },
+    "greatstaff": {
+      "name": "Greatstaff"
+    },
+    "shortsword": {
+      "name": "Shortsword"
+    },
+    "round_shield": {
+      "name": "Round Shield"
+    },
+    "tower_shield": {
+      "name": "Tower Shield"
+    },
+    "small_dagger": {
+      "name": "Small Dagger"
+    },
+    "whip": {
+      "name": "Whip"
+    },
+    "grappler": {
+      "name": "Grappler"
+    },
+    "hand_crossbow": {
+      "name": "Hand Crossbow"
+    },
+    "gambeson": {
+      "name": "Gambeson Armor"
+    },
+    "leather": {
+      "name": "Leather Armor"
+    },
+    "chainmail": {
+      "name": "Chainmail Armor"
+    },
+    "full_plate": {
+      "name": "Full Plate Armor"
+    }
   }
 }

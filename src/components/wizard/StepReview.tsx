@@ -116,13 +116,13 @@ export function StepReview({ data, error }: Props) {
           <Row label={t("community")} value={tg(`dh.community.${data.communityKey}`)} />
         )}
         {weapon && (
-          <Row label={t("weapon")} value={`${weapon.name} (${weapon.damage})`} />
+          <Row label={t("weapon")} value={`${tg(`equip.${weapon.id}.name`)} (${weapon.damage})`} />
         )}
         <Row
           label={t("armor")}
           value={
             armor
-              ? `${armor.name} (${tg("wizard.equipment.score")} ${armor.score})`
+              ? `${tg(`equip.${armor.id}.name`)} (${tg("wizard.equipment.score")} ${armor.score})`
               : tg("wizard.equipment.noArmor")
           }
         />

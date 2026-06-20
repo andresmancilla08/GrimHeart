@@ -1011,5 +1011,115 @@
     "errors": {
       "empty": "La entrada no puede estar vacía."
     }
+  },
+  "equip": {
+    "broadsword": {
+      "name": "Espada ancha"
+    },
+    "longsword": {
+      "name": "Espada larga"
+    },
+    "battleaxe": {
+      "name": "Hacha de batalla"
+    },
+    "greatsword": {
+      "name": "Espadón"
+    },
+    "mace": {
+      "name": "Maza"
+    },
+    "warhammer": {
+      "name": "Martillo de guerra"
+    },
+    "dagger": {
+      "name": "Daga"
+    },
+    "quarterstaff": {
+      "name": "Bastón"
+    },
+    "cutlass": {
+      "name": "Alfanje"
+    },
+    "rapier": {
+      "name": "Estoque"
+    },
+    "halberd": {
+      "name": "Alabarda"
+    },
+    "spear": {
+      "name": "Lanza"
+    },
+    "shortbow": {
+      "name": "Arco corto"
+    },
+    "crossbow": {
+      "name": "Ballesta"
+    },
+    "longbow": {
+      "name": "Arco largo"
+    },
+    "arcane_gauntlets": {
+      "name": "Guanteletes arcanos"
+    },
+    "hallowed_axe": {
+      "name": "Hacha sagrada"
+    },
+    "glowing_rings": {
+      "name": "Anillos brillantes"
+    },
+    "hand_runes": {
+      "name": "Runas de mano"
+    },
+    "returning_blade": {
+      "name": "Hoja retornante"
+    },
+    "shortstaff": {
+      "name": "Bastón corto"
+    },
+    "dualstaff": {
+      "name": "Bastón doble"
+    },
+    "scepter": {
+      "name": "Cetro"
+    },
+    "wand": {
+      "name": "Varita"
+    },
+    "greatstaff": {
+      "name": "Gran bastón"
+    },
+    "shortsword": {
+      "name": "Espada corta"
+    },
+    "round_shield": {
+      "name": "Escudo redondo"
+    },
+    "tower_shield": {
+      "name": "Escudo de torre"
+    },
+    "small_dagger": {
+      "name": "Daga pequeña"
+    },
+    "whip": {
+      "name": "Látigo"
+    },
+    "grappler": {
+      "name": "Garfio"
+    },
+    "hand_crossbow": {
+      "name": "Ballesta de mano"
+    },
+    "gambeson": {
+      "name": "Armadura de gambesón"
+    },
+    "leather": {
+      "name": "Armadura de cuero"
+    },
+    "chainmail": {
+      "name": "Cota de malla"
+    },
+    "full_plate": {
+      "name": "Armadura de placas completa"
+    }
   }
 }

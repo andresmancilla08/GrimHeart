@@ -181,7 +181,7 @@ export function CharacterSheetClient({ character: c }: Props) {
               >
                 <span className="text-xs text-muted">{t("wizard.review.weapon")}</span>
                 <span className="text-sm font-medium text-foreground">
-                  {weapon.name}{" "}
+                  {t(`equip.${weapon.id}.name`)}{" "}
                   <span className="text-muted">({weapon.damage})</span>
                 </span>
               </div>
@@ -189,7 +189,7 @@ export function CharacterSheetClient({ character: c }: Props) {
             {armor && (
               <div className="flex items-baseline justify-between gap-2 py-3">
                 <span className="text-xs text-muted">{t("wizard.review.armor")}</span>
-                <span className="text-sm font-medium text-foreground">{armor.name}</span>
+                <span className="text-sm font-medium text-foreground">{t(`equip.${armor.id}.name`)}</span>
               </div>
             )}
           </div>

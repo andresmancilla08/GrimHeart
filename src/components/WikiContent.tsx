@@ -221,7 +221,7 @@ function getArtSrc(entry: WikiEntry): string | null {
 function resolveEntryName(entry: WikiEntry, t: (key: string) => string): string {
   if (entry.category === "equipment") {
     const equipId = entry.id.replace(/^equip_/, "");
-    return EQUIP_DISPLAY[equipId]?.name ?? entry.id;
+    return t(`equip.${equipId}.name`);
   }
   return t(entry.nameKey);
 }
@@ -486,7 +486,8 @@ function WikiEquipCard({ entry, index }: { entry: WikiEntry; index: number }) {
   const delayStyle = { animationDelay: `${Math.min(index * 30, 300)}ms` };
 
   if (!display) return null;
-  const { name, isArmor, stats } = display;
+  const { isArmor, stats } = display;
+  const name = t(`equip.${equipId}.name`);
   const Icon = getEquipIcon(equipId, isArmor);
   const isMag = stats.dmgType === "mag";
   const glowHex = isMag ? "#a78bfa" : "#d9a441";
@@ -763,7 +764,7 @@ function WikiCategoryView({
       if (q.length === 0) return true;
       const name =
         entry.category === "equipment"
-          ? (EQUIP_DISPLAY[entry.id.replace(/^equip_/, "")]?.name ?? "").toLowerCase()
+          ? t(`equip.${entry.id.replace(/^equip_/, "")}.name`).toLowerCase()
           : t(entry.nameKey).toLowerCase();
       const desc = resolveEntryDesc(entry, t).toLowerCase();
       return name.includes(q) || desc.includes(q);
