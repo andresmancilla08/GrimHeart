@@ -59,12 +59,12 @@ export default async function RootLayout({
                 so the boundary with the letterbox vanishes instead of cutting hard. */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 z-30 hidden w-14 md:block"
+              className="pointer-events-none absolute inset-y-0 left-0 z-30 hidden w-4 md:block"
               style={{ background: "linear-gradient(to right, var(--background), transparent)" }}
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-0 z-30 hidden w-14 md:block"
+              className="pointer-events-none absolute inset-y-0 right-0 z-30 hidden w-4 md:block"
               style={{ background: "linear-gradient(to left, var(--background), transparent)" }}
             />
           </div>
