@@ -24,8 +24,6 @@ interface CategoryMeta {
   landingArtPosition: string;
   /** Gradient overlay for landing card — bottom-to-top */
   landingGradient: string;
-  /** Accent color for the landing card border glow */
-  landingBorderClass: string;
 }
 
 const CATEGORIES: CategoryMeta[] = [
@@ -39,7 +37,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/cover.jpg",
     landingArtPosition: "center 25%",
     landingGradient: "from-background via-background/60 to-transparent",
-    landingBorderClass: "border-gold/30 hover:border-gold/60",
   },
   {
     value: "ancestry",
@@ -51,7 +48,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/cover.jpg",
     landingArtPosition: "left 25%",
     landingGradient: "from-background via-background/55 to-transparent",
-    landingBorderClass: "border-gold/20 hover:border-gold/50",
   },
   {
     value: "community",
@@ -63,7 +59,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/community/ridgeborne.jpg",
     landingArtPosition: "center 25%",
     landingGradient: "from-background via-background/55 to-transparent",
-    landingBorderClass: "border-gold/20 hover:border-gold/50",
   },
   {
     value: "class",
@@ -75,7 +70,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/night-dragon.jpg",
     landingArtPosition: "center 30%",
     landingGradient: "from-background via-background/50 to-transparent",
-    landingBorderClass: "border-fear/25 hover:border-fear-bright/50",
   },
   {
     value: "domain",
@@ -87,7 +81,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/guardian.jpg",
     landingArtPosition: "center 20%",
     landingGradient: "from-background via-background/45 to-transparent",
-    landingBorderClass: "border-fear/25 hover:border-fear-bright/50",
   },
   {
     value: "equipment",
@@ -99,7 +92,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/equipment/primary.jpg",
     landingArtPosition: "center 25%",
     landingGradient: "from-background via-background/60 to-transparent",
-    landingBorderClass: "border-gold-deep/25 hover:border-gold-deep/55",
   },
   {
     value: "rules",
@@ -111,7 +103,6 @@ const CATEGORIES: CategoryMeta[] = [
     landingArt: "/art/night-sky.jpg",
     landingArtPosition: "center 40%",
     landingGradient: "from-background via-background/65 to-transparent",
-    landingBorderClass: "border-gold/20 hover:border-gold/50",
   },
 ];
 
@@ -320,49 +311,49 @@ function WikiLandingCard({
     <button
       type="button"
       onClick={onClick}
-      className={`dh-rise group relative overflow-hidden rounded-2xl border bg-surface-2/10 text-left transition-all duration-150 active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-background ${meta.landingBorderClass}`}
+      className="dh-rise group relative h-40 w-full overflow-hidden rounded-2xl bg-surface-2/30 text-left transition-[transform,box-shadow] duration-[120ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.015] hover:shadow-[0_4px_20px_rgba(0,0,0,0.5)] active:scale-[0.97] active:duration-[80ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-inset"
       style={{ animationDelay: `${index * 50}ms` }}
       aria-label={label}
     >
-      {/* Art */}
-      <div className="relative h-[130px] w-full overflow-hidden">
-        <Image
-          src={meta.landingArt}
-          alt=""
-          fill
-          sizes="(max-width: 640px) calc(50vw - 24px), 260px"
-          style={{
-            objectFit: "cover",
-            objectPosition: meta.landingArtPosition,
-            filter: "brightness(0.7) saturate(1.2)",
-          }}
-          priority={index < 2}
-        />
-        {/* Bottom fade into card body */}
-        <div className={`absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t ${meta.landingGradient}`} />
-        {/* Top spine accent */}
-        <div className={`absolute inset-x-0 top-0 h-[3px] ${meta.spineClass}`} aria-hidden />
-        {/* Emoji glyph — top-left */}
-        <span
-          className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-background/60 text-sm backdrop-blur-sm"
-          aria-hidden
-        >
-          {meta.emoji}
-        </span>
-        {/* Entry count badge — top-right */}
-        <span
-          className={`absolute right-2.5 top-3 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide backdrop-blur-sm ${meta.badgeClass}`}
-        >
-          {t("wiki.landing.entries", { count })}
-        </span>
-      </div>
+      {/* Full-bleed art */}
+      <Image
+        src={meta.landingArt}
+        alt=""
+        fill
+        sizes="(max-width: 640px) calc(50vw - 24px), 260px"
+        className="object-cover transition-[filter] duration-[120ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [filter:brightness(0.65)_saturate(1.25)] group-hover:[filter:brightness(0.82)_saturate(1.3)]"
+        style={{ objectPosition: meta.landingArtPosition }}
+        priority={index < 2}
+      />
 
-      {/* Label */}
-      <div className="px-3.5 pb-3.5 pt-2.5">
-        <h2 className="font-display text-[15px] font-semibold leading-tight text-foreground transition-colors duration-150 group-hover:text-gold-bright">
-          {label}
-        </h2>
-      </div>
+      {/* Bottom gradient — title zone */}
+      <div className={`absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t ${meta.landingGradient}`} />
+
+      {/* Top spine accent — intensifies on hover */}
+      <div
+        className={`absolute inset-x-0 top-0 h-[3px] ${meta.spineClass} opacity-60 transition-opacity duration-[80ms] group-hover:opacity-100`}
+        aria-hidden
+      />
+
+      {/* Emoji — top-left */}
+      <span
+        className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-background/80 text-sm backdrop-blur-md"
+        aria-hidden
+      >
+        {meta.emoji}
+      </span>
+
+      {/* Entry count badge — top-right */}
+      <span
+        className={`absolute right-2.5 top-3 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide backdrop-blur-sm ${meta.badgeClass}`}
+      >
+        {t("wiki.landing.entries", { count })}
+      </span>
+
+      {/* Title overlaid on bottom gradient */}
+      <h2 className="absolute inset-x-0 bottom-0 line-clamp-2 px-3 pb-3 font-display text-sm font-semibold leading-snug tracking-wide text-foreground drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+        {label}
+      </h2>
     </button>
   );
 }
