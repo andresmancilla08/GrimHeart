@@ -236,94 +236,57 @@ function WikiCard({ entry, index }: { entry: WikiEntry; index: number }) {
   const meta = META_BY_VALUE[entry.category];
   const name = resolveEntryName(entry, t);
   const desc = resolveEntryDesc(entry, t);
-  const categoryLabel = t(meta.labelKey);
   const artSrc = getArtSrc(entry);
+  const { LandingIcon, accentHex, accentTextClass } = meta;
 
   const delayStyle = { animationDelay: `${Math.min(index * 30, 300)}ms` };
 
-  if (artSrc) {
-    return (
-      <article
-        className="dh-rise group relative overflow-hidden rounded-2xl border border-border bg-surface-2/20 transition-all duration-150 active:scale-[0.985] hover:border-border-strong hover:bg-surface-2/30"
-        style={delayStyle}
-      >
-        <div className="relative h-[100px] w-full overflow-hidden">
+  return (
+    <article
+      className="dh-rise group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface-2/30 transition-all duration-150 active:scale-[0.98] hover:border-border-strong hover:bg-surface-2/45"
+      style={delayStyle}
+    >
+      {/* Cover */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
+        {artSrc ? (
           <Image
             src={artSrc}
             alt=""
             fill
-            sizes="(max-width: 640px) calc(50vw - 24px), 300px"
+            sizes="(max-width: 640px) calc(50vw - 28px), 300px"
             style={{
               objectFit: "cover",
               objectPosition: "center top",
-              filter: "brightness(0.65) saturate(1.15)",
+              filter: "brightness(0.62) saturate(1.15)",
             }}
           />
-          <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-surface-2/95 to-transparent" />
-          <span
-            className={`absolute right-2.5 top-3 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide backdrop-blur-sm ${meta.badgeClass}`}
+        ) : (
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              background: `radial-gradient(ellipse 90% 80% at 50% 35%, ${accentHex}1f, transparent 72%)`,
+            }}
           >
-            {categoryLabel}
-          </span>
-          <h3 className="absolute bottom-2 left-3 right-8 line-clamp-1 font-display text-sm font-semibold leading-tight text-foreground drop-shadow-lg">
-            {name}
-          </h3>
-        </div>
-
-        <div className="px-3 pb-3 pt-2">
-          {desc && (
-            <p className="line-clamp-2 text-xs leading-relaxed text-muted">{desc}</p>
-          )}
-          {entry.tags && entry.tags.length > 0 && (
-            <div className="mt-1.5 flex flex-wrap gap-1">
-              {entry.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-border/60 bg-surface-2/40 px-2 py-0.5 text-[10px] text-muted/70"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      </article>
-    );
-  }
-
-  // Card without illustration (rules)
-  return (
-    <article
-      className="dh-rise group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface-2/20 transition-all duration-150 active:scale-[0.985] hover:bg-surface-2/40 hover:border-border-strong"
-      style={delayStyle}
-    >
-      <div className="flex flex-col gap-2 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="font-display text-base font-semibold leading-snug text-foreground">
-            {name}
-          </h3>
-          <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${meta.badgeClass}`}
-          >
-            {categoryLabel}
-          </span>
-        </div>
-        {desc && (
-          <p className="line-clamp-3 text-sm leading-relaxed text-muted">{desc}</p>
-        )}
-        {entry.tags && entry.tags.length > 0 && (
-          <div className="mt-1 flex flex-wrap gap-1">
-            {entry.tags.slice(0, 4).map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-border/60 bg-surface-2/40 px-2 py-0.5 text-[10px] text-muted/70"
-              >
-                {tag}
-              </span>
-            ))}
+            <LandingIcon
+              size={34}
+              stroke={1.4}
+              className={`${accentTextClass} opacity-50`}
+            />
           </div>
         )}
+        {/* Bottom fade + name */}
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-surface-2 via-surface-2/70 to-transparent" />
+        <h3 className="absolute inset-x-0 bottom-0 line-clamp-1 px-3 pb-2 font-display text-sm font-semibold leading-tight tracking-wide text-foreground drop-shadow-[0_1px_6px_rgba(0,0,0,0.8)]">
+          {name}
+        </h3>
       </div>
+
+      {/* Description */}
+      {desc && (
+        <p className="line-clamp-2 px-3 pb-3 pt-2 text-xs leading-relaxed text-muted">
+          {desc}
+        </p>
+      )}
     </article>
   );
 }
@@ -579,7 +542,7 @@ function WikiCategoryView({ category }: { category: WikiCategory }) {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3">
             {filtered.map((entry, index) => (
               <WikiCard key={entry.id} entry={entry} index={index} />
             ))}
