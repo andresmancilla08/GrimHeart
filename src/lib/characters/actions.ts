@@ -7,6 +7,7 @@ import { CLASS_DEFS, type SubclassKey } from "@/lib/daggerheart/classes";
 import { ARMOR_BY_ID, WEAPONS_BY_ID } from "@/lib/daggerheart/equipment";
 import type { Character, ClassKey, AncestryKey, CommunityKey, CharacterTraits, TraitKey } from "@/lib/daggerheart/types";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export interface CreateCharacterInput {
   name: string;
@@ -183,6 +184,8 @@ export async function updateCharacter(
   };
 
   await ref.update(update);
+  revalidatePath("/characters");
+  revalidatePath(`/characters/${id}`);
   return { id };
 }
 
@@ -197,6 +200,7 @@ export async function deleteCharacter(id: string): Promise<{ ok: true } | { erro
     .doc(id)
     .delete();
 
+  revalidatePath("/characters");
   return { ok: true };
 }
 

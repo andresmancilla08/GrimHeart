@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { IconDots, IconPencil, IconTrash } from "@tabler/icons-react";
@@ -14,18 +14,25 @@ export function CharacterActionsMenu({ character }: { character: Character }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [deleting, setDeleting] = useState(false);
 
   // Editing is only available before any level-up.
   const canEdit = character.level <= 1;
 
-  function handleDelete() {
-    startTransition(async () => {
-      await deleteCharacter(character.id);
-      setDeleteOpen(false);
-      router.push("/characters");
-      router.refresh();
-    });
+  async function handleDelete() {
+    setDeleting(true);
+    try {
+      const res = await deleteCharacter(character.id);
+      if ("error" in res) {
+        setDeleting(false);
+        return;
+      }
+    } catch {
+      setDeleting(false);
+      return;
+    }
+    // Replace so the back button doesn't return to the deleted character.
+    router.replace("/characters");
   }
 
   return (
@@ -91,9 +98,9 @@ export function CharacterActionsMenu({ character }: { character: Character }) {
         icon={<IconTrash size={24} stroke={1.8} />}
         title={t("character.actions.deleteTitle")}
         description={t("character.actions.deleteDesc", { name: character.name })}
-        primaryLabel={isPending ? t("character.actions.deleting") : t("character.actions.deleteConfirm")}
+        primaryLabel={deleting ? t("character.actions.deleting") : t("character.actions.deleteConfirm")}
         primaryVariant="danger"
-        primaryDisabled={isPending}
+        primaryDisabled={deleting}
         onPrimary={handleDelete}
         secondaryLabel={t("common.cancel")}
       />
