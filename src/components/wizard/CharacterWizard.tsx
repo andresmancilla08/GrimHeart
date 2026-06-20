@@ -7,10 +7,10 @@ import { IconX } from "@tabler/icons-react";
 import { SubHeader } from "@/components/SubHeader";
 import { AppDialog } from "@/components/ui/AppDialog";
 import { TRAIT_ARRAY, CLASS_SUGGESTED_TRAITS } from "@/lib/daggerheart/reference";
-import { createCharacter } from "@/lib/characters/actions";
+import { createCharacter, updateCharacter } from "@/lib/characters/actions";
 import type { CreateCharacterInput } from "@/lib/characters/actions";
-import type { CharacterTraits, TraitKey } from "@/lib/daggerheart/types";
-import { SUBCLASS_DEFS } from "@/lib/daggerheart/classes";
+import type { Character, CharacterTraits, TraitKey } from "@/lib/daggerheart/types";
+import { SUBCLASS_DEFS, type SubclassKey } from "@/lib/daggerheart/classes";
 import { INITIAL_DATA, STEP_KEYS, type WizardData } from "./types";
 import { StepIdentity } from "./StepIdentity";
 import { StepClass } from "./StepClass";
@@ -21,11 +21,36 @@ import { StepEquipment } from "./StepEquipment";
 import { StepBackground } from "./StepBackground";
 import { StepReview } from "./StepReview";
 
-export function CharacterWizard() {
+/** Maps an existing character back into editable wizard state (edit mode). */
+function characterToWizardData(c: Character): WizardData {
+  const primary = c.equipment.weapons.find((w) => w.slot === "primary");
+  const secondary = c.equipment.weapons.find((w) => w.slot === "secondary");
+  return {
+    name: c.name,
+    pronouns: c.pronouns ?? "",
+    classKey: c.classKey,
+    subclassKey: c.subclassKey as SubclassKey,
+    ancestryKey: c.ancestryKey,
+    communityKey: c.communityKey,
+    traits: { ...c.traits },
+    pendingModifier: null,
+    domainCardIds: [...c.loadout],
+    primaryWeaponId: primary?.id ?? null,
+    secondaryWeaponId: secondary?.id ?? null,
+    armorId: c.equipment.armorId,
+    exp1: c.experiences[0]?.name ?? "",
+    exp2: c.experiences[1]?.name ?? "",
+  };
+}
+
+export function CharacterWizard({ editCharacter }: { editCharacter?: Character } = {}) {
   const { t } = useTranslation();
   const router = useRouter();
+  const isEdit = !!editCharacter;
   const [step, setStep] = useState(0);
-  const [data, setData] = useState<WizardData>(INITIAL_DATA);
+  const [data, setData] = useState<WizardData>(
+    editCharacter ? characterToWizardData(editCharacter) : INITIAL_DATA,
+  );
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [cancelOpen, setCancelOpen] = useState(false);
@@ -65,7 +90,7 @@ export function CharacterWizard() {
     }
   }
 
-  function handleCreate() {
+  function handleSubmit() {
     if (!data.classKey || !data.subclassKey || !data.ancestryKey || !data.communityKey || !data.primaryWeaponId) return;
 
     const traits = Object.fromEntries(
@@ -89,11 +114,13 @@ export function CharacterWizard() {
 
     startTransition(async () => {
       setError(null);
-      const result = await createCharacter(input);
+      const result = isEdit
+        ? await updateCharacter(editCharacter!.id, input)
+        : await createCharacter(input);
       if ("error" in result) {
         setError(result.error);
       } else {
-        router.push(`/characters/${result.id}`);
+        router.push(`/characters/${"id" in result ? result.id : editCharacter!.id}`);
       }
     });
   }
@@ -144,7 +171,7 @@ export function CharacterWizard() {
         description={t("wizard.cancelDesc")}
         primaryLabel={t("wizard.cancelConfirm")}
         primaryVariant="danger"
-        onPrimary={() => router.push("/characters")}
+        onPrimary={() => router.push(isEdit ? `/characters/${editCharacter!.id}` : "/characters")}
         secondaryLabel={t("wizard.back")}
       />
 
@@ -187,7 +214,7 @@ export function CharacterWizard() {
             disabled={!canContinue() || isPending}
             onClick={() => {
               if (step === totalSteps - 1) {
-                handleCreate();
+                handleSubmit();
               } else {
                 setStep(step + 1);
               }
@@ -195,9 +222,9 @@ export function CharacterWizard() {
             className="h-12 flex-1 rounded-full bg-gradient-to-b from-gold-bright to-gold font-semibold text-[#2a1d05] shadow-[0_6px_24px_-8px_rgba(217,164,65,0.7)] transition hover:brightness-105 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
           >
             {isPending
-              ? t("wizard.creating")
+              ? t(isEdit ? "wizard.saving" : "wizard.creating")
               : step === totalSteps - 1
-              ? t("wizard.create")
+              ? t(isEdit ? "wizard.save" : "wizard.create")
               : t("wizard.continue")}
           </button>
         </div>

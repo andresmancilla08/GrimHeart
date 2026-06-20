@@ -23,10 +23,13 @@ import {
   IconSparkles,
   IconBolt,
   IconShirt,
+  IconCards,
 } from "@tabler/icons-react";
 import { SubHeader } from "@/components/SubHeader";
 import { WIKI_ENTRIES, EQUIP_DISPLAY, type WikiCategory, type WikiEntry } from "@/lib/wiki/entries";
 import { SECONDARY_WEAPONS, ARMORS } from "@/lib/daggerheart/equipment";
+import { CARDS_BY_ID } from "@/lib/daggerheart/cards";
+import { DOMAINS } from "@/lib/daggerheart/reference";
 
 // ── Category meta ────────────────────────────────────────────────────────────
 
@@ -125,6 +128,20 @@ const CATEGORIES: CategoryMeta[] = [
     accentTextClass: "text-fear-bright",
   },
   {
+    value: "card",
+    emoji: "🃏",
+    labelKey: "wiki.category.card",
+    accentClass: "border-fear/40 bg-fear/[0.12] text-fear-bright",
+    spineClass: "bg-fear/60",
+    badgeClass: "bg-black/65 border border-white/10 text-fear-bright",
+    landingArt: "/art/cards/blade_whirlwind.jpg",
+    landingArtPosition: "center 30%",
+    landingGradient: "from-background via-background/45 to-transparent",
+    LandingIcon: IconCards,
+    accentHex: "#a78bfa",
+    accentTextClass: "text-fear-bright",
+  },
+  {
     value: "equipment",
     emoji: "🗡️",
     labelKey: "wiki.category.equipment",
@@ -186,6 +203,8 @@ function getArtSrc(entry: WikiEntry): string | null {
       const key = entry.id.replace(/^domain_/, "");
       return `/art/domains/${key}.jpg`;
     }
+    case "card":
+      return `/art/cards/${entry.id}.jpg`;
     case "equipment": {
       const equipId = entry.id.replace(/^equip_/, "");
       if (ARMOR_IDS.has(equipId)) return "/art/equipment/armor.jpg";
@@ -347,6 +366,30 @@ function WikiEntryView({ entry }: { entry: WikiEntry }) {
           <h1 className="font-display text-3xl font-semibold leading-tight text-foreground">
             {name}
           </h1>
+
+          {entry.category === "card" && CARDS_BY_ID[entry.id] && (
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5">
+              {(() => {
+                const card = CARDS_BY_ID[entry.id];
+                return (
+                  <>
+                    <span className="rounded-full border border-fear/30 bg-fear/10 px-2.5 py-1 text-[11px] font-semibold text-fear-bright">
+                      {t(`dh.domain.${card.domain}`)}
+                    </span>
+                    <span className="rounded-full border border-border bg-surface-2/50 px-2.5 py-1 text-[11px] font-medium text-muted">
+                      {t(`wiki.card.level`, { level: card.level })}
+                    </span>
+                    <span className="rounded-full border border-border bg-surface-2/50 px-2.5 py-1 text-[11px] font-medium text-muted">
+                      {t(`wizard.cards.${card.type}`)}
+                    </span>
+                    <span className="rounded-full border border-gold/30 bg-gold/10 px-2.5 py-1 text-[11px] font-medium text-gold">
+                      {t(`wiki.card.recall`, { cost: card.recallCost })}
+                    </span>
+                  </>
+                );
+              })()}
+            </div>
+          )}
         </div>
       </div>
 
@@ -661,6 +704,33 @@ function WikiLanding({ onSelectCategory }: { onSelectCategory: (cat: WikiCategor
   );
 }
 
+// ── FilterChip (card domain/level filters) ────────────────────────────────────
+
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`flex min-h-[36px] shrink-0 items-center whitespace-nowrap rounded-full border px-3.5 text-xs font-medium transition-colors duration-150 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fear/50 ${
+        active
+          ? "border-fear/50 bg-fear/[0.18] text-fear-bright"
+          : "border-border bg-surface-2/40 text-muted hover:border-border-strong hover:text-foreground"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
 // ── WikiCategoryView ──────────────────────────────────────────────────────────
 
 function WikiCategoryView({
@@ -672,16 +742,24 @@ function WikiCategoryView({
 }) {
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
+  const [domainFilter, setDomainFilter] = useState<string>("all");
+  const [levelFilter, setLevelFilter] = useState<number | "all">("all");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const meta = META_BY_VALUE[category];
   const label = t(meta.labelKey);
   const { LandingIcon, accentHex, accentTextClass } = meta;
+  const isCards = category === "card";
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return WIKI_ENTRIES.filter((entry) => {
       if (entry.category !== category) return false;
+      if (isCards) {
+        const card = CARDS_BY_ID[entry.id];
+        if (domainFilter !== "all" && card?.domain !== domainFilter) return false;
+        if (levelFilter !== "all" && card?.level !== levelFilter) return false;
+      }
       if (q.length === 0) return true;
       const name =
         entry.category === "equipment"
@@ -690,7 +768,7 @@ function WikiCategoryView({
       const desc = resolveEntryDesc(entry, t).toLowerCase();
       return name.includes(q) || desc.includes(q);
     });
-  }, [query, category, t]);
+  }, [query, category, t, isCards, domainFilter, levelFilter]);
 
   const clearQuery = useCallback(() => {
     setQuery("");
@@ -756,6 +834,32 @@ function WikiCategoryView({
               </button>
             )}
           </div>
+
+          {/* Card filters: domain + level */}
+          {isCards && (
+            <div className="mt-3 flex flex-col gap-2">
+              <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <FilterChip active={domainFilter === "all"} onClick={() => setDomainFilter("all")}>
+                  {t("wiki.all")}
+                </FilterChip>
+                {DOMAINS.map((d) => (
+                  <FilterChip key={d} active={domainFilter === d} onClick={() => setDomainFilter(d)}>
+                    {t(`dh.domain.${d}`)}
+                  </FilterChip>
+                ))}
+              </div>
+              <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <FilterChip active={levelFilter === "all"} onClick={() => setLevelFilter("all")}>
+                  {t("wiki.card.allLevels")}
+                </FilterChip>
+                {Array.from({ length: 10 }, (_, i) => i + 1).map((lv) => (
+                  <FilterChip key={lv} active={levelFilter === lv} onClick={() => setLevelFilter(lv)}>
+                    {t("wiki.card.level", { level: lv })}
+                  </FilterChip>
+                ))}
+              </div>
+            </div>
+          )}
 
           <p className="mt-2 px-0.5 text-center text-xs text-muted/60" aria-live="polite">
             {t("wiki.resultCount", { count: filtered.length })}

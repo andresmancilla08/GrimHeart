@@ -2,6 +2,7 @@
 // Source: CoreBook (via reference.ts and equipment.ts).
 
 import { ANCESTRIES, COMMUNITIES, CLASSES, DOMAINS } from "@/lib/daggerheart/reference";
+import { DOMAIN_CARDS } from "@/lib/daggerheart/cards";
 import {
   PRIMARY_WEAPONS,
   SECONDARY_WEAPONS,
@@ -15,6 +16,7 @@ export type WikiCategory =
   | "community"
   | "class"
   | "domain"
+  | "card"
   | "equipment"
   | "rules";
 
@@ -111,6 +113,15 @@ const domainEntries: WikiEntry[] = DOMAINS.map((key) => ({
   loreKey: `dh.domain.${key}_lore`,
 }));
 
+// ── Domain cards (abilities / spells / grimoires) ─────────────────────────────
+
+const cardEntries: WikiEntry[] = DOMAIN_CARDS.map((c) => ({
+  id: c.id,
+  category: "card",
+  nameKey: `dh.card.${c.id}`,
+  descKey: `dh.card.${c.id}_desc`,
+}));
+
 // ── Equipment ────────────────────────────────────────────────────────────────
 
 const primaryWeaponEntries: WikiEntry[] = PRIMARY_WEAPONS.map((w) => ({
@@ -196,6 +207,7 @@ export const WIKI_ENTRIES: WikiEntry[] = [
   ...communityEntries,
   ...classEntries,
   ...domainEntries,
+  ...cardEntries,
   ...primaryWeaponEntries,
   ...secondaryWeaponEntries,
   ...armorEntries,

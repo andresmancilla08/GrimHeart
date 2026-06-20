@@ -1,8 +1,9 @@
 "use server";
 
+import { FieldValue } from "firebase-admin/firestore";
 import { adminDb } from "@/lib/firebase/admin";
 import { getSession } from "@/lib/auth/session";
-import { CLASS_DEFS, SUBCLASS_DEFS, type SubclassKey } from "@/lib/daggerheart/classes";
+import { CLASS_DEFS, type SubclassKey } from "@/lib/daggerheart/classes";
 import { ARMOR_BY_ID, WEAPONS_BY_ID } from "@/lib/daggerheart/equipment";
 import type { Character, ClassKey, AncestryKey, CommunityKey, CharacterTraits, TraitKey } from "@/lib/daggerheart/types";
 import { redirect } from "next/navigation";
@@ -22,22 +23,27 @@ export interface CreateCharacterInput {
   experiences: [string, string];
 }
 
-export async function createCharacter(input: CreateCharacterInput): Promise<{ id: string } | { error: string }> {
-  const session = await getSession();
-  if (!session) return { error: "auth.errors.unknown" };
-
+/** Base stats derived from class + equipment (level-1 baseline). Shared by create/update. */
+function deriveBaseStats(input: CreateCharacterInput) {
   const classDef = CLASS_DEFS[input.classKey];
-  const subclassDef = SUBCLASS_DEFS[input.subclassKey as SubclassKey];
   const armor = input.armorId ? ARMOR_BY_ID[input.armorId] : null;
   const primaryWeapon = WEAPONS_BY_ID[input.primaryWeaponId];
 
-  // Derive stats from chosen class + equipment
   let evasion = classDef.evasion;
   if (armor?.featureKey === "flexible")  evasion += 1;
   if (armor?.featureKey === "heavy")     evasion -= 1;
   if (armor?.featureKey === "veryHeavy") evasion -= 2;
   if (primaryWeapon?.featureKey === "massive") evasion -= 1;
   if (primaryWeapon?.featureKey === "heavy")   evasion -= 1;
+
+  return { evasion, hpMax: classDef.hp, armorScore: armor?.score ?? 0 };
+}
+
+export async function createCharacter(input: CreateCharacterInput): Promise<{ id: string } | { error: string }> {
+  const session = await getSession();
+  if (!session) return { error: "auth.errors.unknown" };
+
+  const { evasion, hpMax, armorScore } = deriveBaseStats(input);
 
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
@@ -55,13 +61,13 @@ export async function createCharacter(input: CreateCharacterInput): Promise<{ id
     level: 1,
     traits: input.traits,
     evasion,
-    hpMax: classDef.hp,
+    hpMax,
     hpMarked: 0,
     stressMax: 6,
     stressMarked: 0,
     hope: 2,
     proficiency: 1,
-    armorScore: armor?.score ?? 0,
+    armorScore,
     experiences: [
       { id: "exp1", name: input.experiences[0], modifier: 2 },
       { id: "exp2", name: input.experiences[1], modifier: 2 },
@@ -119,6 +125,79 @@ export async function getCharacter(id: string): Promise<Character | null> {
     .get();
 
   return doc.exists ? (doc.data() as Character) : null;
+}
+
+export async function updateCharacter(
+  id: string,
+  input: CreateCharacterInput,
+): Promise<{ id: string } | { error: string }> {
+  const session = await getSession();
+  if (!session) return { error: "auth.errors.unknown" };
+
+  const ref = adminDb()
+    .collection("users")
+    .doc(session.uid)
+    .collection("characters")
+    .doc(id);
+
+  const doc = await ref.get();
+  if (!doc.exists) return { error: "character.errors.notFound" };
+
+  const existing = doc.data() as Character;
+  // Editing is only allowed before any level-up; afterwards stats/progress would desync.
+  if (existing.level > 1) return { error: "character.errors.editLocked" };
+
+  const { evasion, hpMax, armorScore } = deriveBaseStats(input);
+  const now = new Date().toISOString();
+  const pronouns = input.pronouns?.trim() || null;
+
+  const update: Record<string, unknown> = {
+    name: input.name.trim(),
+    // Set when provided, otherwise remove the field from the doc.
+    pronouns: pronouns ?? FieldValue.delete(),
+    classKey: input.classKey,
+    subclassKey: input.subclassKey,
+    ancestryKey: input.ancestryKey,
+    communityKey: input.communityKey,
+    traits: input.traits,
+    evasion,
+    hpMax,
+    // Keep tracked combat state coherent with new maxima.
+    hpMarked: Math.min(existing.hpMarked, hpMax),
+    stressMarked: Math.min(existing.stressMarked, existing.stressMax),
+    armorScore,
+    experiences: [
+      { id: "exp1", name: input.experiences[0], modifier: 2 },
+      { id: "exp2", name: input.experiences[1], modifier: 2 },
+    ],
+    loadout: input.domainCardIds,
+    equipment: {
+      weapons: [
+        { id: input.primaryWeaponId, slot: "primary" as const },
+        ...(input.secondaryWeaponId ? [{ id: input.secondaryWeaponId, slot: "secondary" as const }] : []),
+      ],
+      armorId: input.armorId,
+      itemIds: existing.equipment.itemIds ?? [],
+    },
+    updatedAt: now,
+  };
+
+  await ref.update(update);
+  return { id };
+}
+
+export async function deleteCharacter(id: string): Promise<{ ok: true } | { error: string }> {
+  const session = await getSession();
+  if (!session) return { error: "auth.errors.unknown" };
+
+  await adminDb()
+    .collection("users")
+    .doc(session.uid)
+    .collection("characters")
+    .doc(id)
+    .delete();
+
+  return { ok: true };
 }
 
 export type LevelUpAdvancement =
