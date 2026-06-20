@@ -24,7 +24,7 @@ export function SubHeader({ backHref, onBack, rightElement }: Props) {
   }
 
   return (
-    <div className="pt-safe bg-background/70 backdrop-blur-md">
+    <div className="pt-safe bg-transparent">
     <div className="flex items-center justify-between px-4 py-[10px]">
       <button
         type="button"
