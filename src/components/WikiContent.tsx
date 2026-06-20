@@ -8,6 +8,7 @@ import {
   IconSearch,
   IconX,
   IconBookOff,
+  IconChevronDown,
   IconDna2,
   IconBuildingCommunity,
   IconSwords,
@@ -291,6 +292,59 @@ function WikiCard({ entry, index }: { entry: WikiEntry; index: number }) {
   );
 }
 
+// ── WikiRuleCard (full-width accordion for rules) ─────────────────────────────
+
+function WikiRuleCard({ entry, index }: { entry: WikiEntry; index: number }) {
+  const { t } = useTranslation();
+  const meta = META_BY_VALUE[entry.category];
+  const name = resolveEntryName(entry, t);
+  const desc = resolveEntryDesc(entry, t);
+  const { LandingIcon, accentHex, accentTextClass } = meta;
+  const [open, setOpen] = useState(false);
+
+  return (
+    <article
+      className="dh-rise overflow-hidden rounded-2xl border border-border bg-surface-2/30 transition-colors duration-150 hover:border-border-strong"
+      style={{ animationDelay: `${Math.min(index * 30, 300)}ms` }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-transform duration-150 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-inset"
+      >
+        <div
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border"
+          style={{ backgroundColor: `${accentHex}1a`, borderColor: `${accentHex}33` }}
+        >
+          <LandingIcon size={18} stroke={1.5} className={accentTextClass} />
+        </div>
+        <h3 className="min-w-0 flex-1 font-display text-base font-semibold leading-snug tracking-wide text-foreground">
+          {name}
+        </h3>
+        <IconChevronDown
+          size={18}
+          className={`shrink-0 text-muted transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          aria-hidden
+        />
+      </button>
+
+      {/* Collapsible body — CSS grid-rows trick, animates height */}
+      <div
+        className={`grid transition-[grid-template-rows] duration-200 ease-out motion-reduce:transition-none ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="border-t border-border/40 px-4 pb-4 pt-3 text-sm leading-relaxed text-muted">
+            {desc}
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 // ── WikiLandingCard ───────────────────────────────────────────────────────────
 
 function WikiLandingCard({
@@ -542,11 +596,19 @@ function WikiCategoryView({ category }: { category: WikiCategory }) {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-3">
-            {filtered.map((entry, index) => (
-              <WikiCard key={entry.id} entry={entry} index={index} />
-            ))}
-          </div>
+          category === "rules" ? (
+            <div className="flex flex-col gap-3">
+              {filtered.map((entry, index) => (
+                <WikiRuleCard key={entry.id} entry={entry} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-3">
+              {filtered.map((entry, index) => (
+                <WikiCard key={entry.id} entry={entry} index={index} />
+              ))}
+            </div>
+          )
         )}
         </div>
       </div>
