@@ -200,7 +200,10 @@
       "statsGroup": "Stats iniciales"
     },
     "save": "Guardar cambios",
-    "saving": "Guardando..."
+    "saving": "Guardando...",
+    "cancelTitleEdit": "¿Descartar cambios?",
+    "cancelDescEdit": "Si cancelas, perderás los cambios sin guardar.",
+    "cancelConfirmEdit": "Sí, descartar"
   },
   "dh": {
     "class": {

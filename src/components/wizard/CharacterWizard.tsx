@@ -167,9 +167,9 @@ export function CharacterWizard({ editCharacter }: { editCharacter?: Character }
         open={cancelOpen}
         onClose={() => setCancelOpen(false)}
         icon={<span className="text-2xl" aria-hidden>✕</span>}
-        title={t("wizard.cancelTitle")}
-        description={t("wizard.cancelDesc")}
-        primaryLabel={t("wizard.cancelConfirm")}
+        title={t(isEdit ? "wizard.cancelTitleEdit" : "wizard.cancelTitle")}
+        description={t(isEdit ? "wizard.cancelDescEdit" : "wizard.cancelDesc")}
+        primaryLabel={t(isEdit ? "wizard.cancelConfirmEdit" : "wizard.cancelConfirm")}
         primaryVariant="danger"
         onPrimary={() => router.push(isEdit ? `/characters/${editCharacter!.id}` : "/characters")}
         secondaryLabel={t("wizard.back")}

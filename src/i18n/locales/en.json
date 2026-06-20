@@ -200,7 +200,10 @@
       "statsGroup": "Starting stats"
     },
     "save": "Save changes",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "cancelTitleEdit": "Discard changes?",
+    "cancelDescEdit": "If you cancel, you'll lose your unsaved changes.",
+    "cancelConfirmEdit": "Yes, discard"
   },
   "dh": {
     "class": {
