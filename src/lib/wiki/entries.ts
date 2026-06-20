@@ -23,6 +23,8 @@ export interface WikiEntry {
   category: WikiCategory;
   nameKey: string;
   descKey: string;
+  /** Full CoreBook lore, shown in the detail view (falls back to descKey). */
+  loreKey?: string;
   tags?: string[];
   detailKeys?: Record<string, string>;
 }
@@ -76,6 +78,7 @@ const ancestryEntries: WikiEntry[] = ANCESTRIES.map((key) => ({
   category: "ancestry",
   nameKey: `dh.ancestry.${key}`,
   descKey: `dh.ancestry.${key}_desc`,
+  loreKey: `dh.ancestry.${key}_lore`,
 }));
 
 // ── Communities ──────────────────────────────────────────────────────────────
@@ -85,6 +88,7 @@ const communityEntries: WikiEntry[] = COMMUNITIES.map((key) => ({
   category: "community",
   nameKey: `dh.community.${key}`,
   descKey: `dh.community.${key}_desc`,
+  loreKey: `dh.community.${key}_lore`,
 }));
 
 // ── Classes ──────────────────────────────────────────────────────────────────
@@ -94,6 +98,7 @@ const classEntries: WikiEntry[] = CLASSES.map((key) => ({
   category: "class",
   nameKey: `dh.class.${key}`,
   descKey: `dh.class.${key}_desc`,
+  loreKey: `dh.class.${key}_lore`,
 }));
 
 // ── Domains ──────────────────────────────────────────────────────────────────
@@ -103,6 +108,7 @@ const domainEntries: WikiEntry[] = DOMAINS.map((key) => ({
   category: "domain",
   nameKey: `dh.domain.${key}`,
   descKey: `dh.domain.${key}_wiki_desc`,
+  loreKey: `dh.domain.${key}_lore`,
 }));
 
 // ── Equipment ────────────────────────────────────────────────────────────────

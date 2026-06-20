@@ -250,6 +250,7 @@ function WikiCard({ entry, index }: { entry: WikiEntry; index: number }) {
   const { LandingIcon, accentHex, accentTextClass } = meta;
   const [open, setOpen] = useState(false);
 
+  const lore = entry.loreKey ? t(entry.loreKey) : desc;
   const delayStyle = { animationDelay: `${Math.min(index * 30, 300)}ms` };
 
   return (
@@ -328,9 +329,9 @@ function WikiCard({ entry, index }: { entry: WikiEntry; index: number }) {
             {name}
           </h2>
 
-          {desc && (
-            <p className="mx-auto mt-4 max-w-[40ch] border-t border-border/30 pt-4 text-sm leading-relaxed text-muted">
-              {desc}
+          {lore && (
+            <p className="mt-4 whitespace-pre-line border-t border-border/30 pt-4 text-left text-sm leading-relaxed text-muted">
+              {lore}
             </p>
           )}
         </div>
