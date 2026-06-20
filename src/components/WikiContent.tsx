@@ -624,14 +624,8 @@ function WikiLandingCard({
 
       {/* Icon + text stack */}
       <div className="relative flex h-full flex-col items-center justify-center">
-        {/* Icon circle with glow layer */}
+        {/* Icon circle */}
         <div className="relative mb-3 flex items-center justify-center">
-          {/* Glow pseudo-element — opacity transitions on group-hover */}
-          <div
-            className="pointer-events-none absolute inset-0 rounded-full opacity-0 blur-[12px] transition-opacity duration-[120ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100"
-            style={{ background: accentHex, transform: "scale(1.4)" }}
-            aria-hidden
-          />
           {/* Icon backdrop circle */}
           <div
             className="relative flex h-14 w-14 items-center justify-center rounded-full border"

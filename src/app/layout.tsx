@@ -49,7 +49,12 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <DevSwKiller />
-        <I18nProvider initialLanguage={lang}>{children}</I18nProvider>
+        <I18nProvider initialLanguage={lang}>
+          {/* App column: centered + capped on desktop/tablet. The `transform` makes
+              this a containing block so fixed CTAs/aurora resolve to the column,
+              not the full viewport (mobile unaffected — column is full-width). */}
+          <div className="relative mx-auto w-full max-w-2xl transform-gpu">{children}</div>
+        </I18nProvider>
       </body>
     </html>
   );

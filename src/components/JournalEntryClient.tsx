@@ -73,7 +73,7 @@ export function JournalEntryClient({ characterId, entry }: Props) {
 
       {/* Scrollable body only */}
       <article className="min-h-0 flex-1 overflow-y-auto px-5 pb-40 pt-5">
-        <p className="mx-auto w-full max-w-2xl whitespace-pre-line text-[15px] leading-relaxed text-foreground/85">
+        <p className="mx-auto w-full max-w-2xl whitespace-pre-line text-justify text-[15px] leading-relaxed text-foreground/85 [hyphens:auto]">
           {entry.body}
         </p>
       </article>
