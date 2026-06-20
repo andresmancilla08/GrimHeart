@@ -53,7 +53,7 @@ export function JournalEntryClient({ characterId, entry }: Props) {
     <main className="z-10 flex min-h-0 flex-1 flex-col">
       {/* Fixed header — date + title + rule */}
       <header className="dh-rise shrink-0 px-5 pt-2">
-        <div className="mx-auto w-full max-w-2xl">
+        <div className="mx-auto w-full max-w-2xl text-center">
           <time className="text-xs font-semibold uppercase tracking-[0.14em] text-gold/70">
             {fmtDate(entry.createdAt)}
           </time>
