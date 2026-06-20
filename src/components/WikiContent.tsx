@@ -428,15 +428,15 @@ function WikiEquipCard({ entry, index }: { entry: WikiEntry; index: number }) {
         <div
           className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border ${tone.chip}`}
         >
-          <Icon size={22} stroke={1.5} />
+          <Icon size={20} stroke={1.75} />
         </div>
 
         {/* Name + meta */}
         <div className="min-w-0 flex-1">
-          <h3 className="truncate font-display text-base font-semibold leading-tight tracking-wide text-foreground">
+          <h3 className="line-clamp-2 font-display text-base font-semibold leading-tight tracking-wide text-foreground">
             {name}
           </h3>
-          <p className="mt-0.5 truncate text-xs text-muted">{metaLine}</p>
+          <p className="mt-0.5 text-xs leading-snug text-muted">{metaLine}</p>
         </div>
 
         {/* Prominent damage / armor value — the visual anchor */}
@@ -446,7 +446,7 @@ function WikiEquipCard({ entry, index }: { entry: WikiEntry; index: number }) {
           <span className={`font-mono text-base font-bold leading-none ${tone.pillVal}`}>
             {pillValue}
           </span>
-          <span className={`mt-1 text-[9px] font-medium uppercase tracking-wide ${tone.pillLbl}`}>
+          <span className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.08em] ${tone.pillLbl}`}>
             {pillLabel}
           </span>
         </div>
@@ -457,7 +457,7 @@ function WikiEquipCard({ entry, index }: { entry: WikiEntry; index: number }) {
         <div className="flex flex-col gap-1.5 border-t border-border/40 pt-2.5">
           {feature && (
             <p className={`flex gap-1.5 text-xs leading-relaxed ${tone.feature}`}>
-              <span aria-hidden className="shrink-0">
+              <span aria-hidden className="mt-0.5 shrink-0 leading-none">
                 ★
               </span>
               <span>{feature}</span>
