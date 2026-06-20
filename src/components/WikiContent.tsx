@@ -494,7 +494,11 @@ function WikiEquipCard({ entry, index }: { entry: WikiEntry; index: number }) {
             backgroundImage: `radial-gradient(circle at 50% 22%, ${glowHex}40, transparent 72%)`,
           }}
         >
-          <Icon size={23} stroke={1.6} className="relative drop-shadow-[0_0_6px_rgba(0,0,0,0.4)]" />
+          <Icon
+            size={23}
+            stroke={1.6}
+            className={`relative drop-shadow-[0_0_6px_rgba(0,0,0,0.4)] ${isMag ? "text-fear-bright" : "text-gold-bright"}`}
+          />
         </div>
 
         {/* Name + meta */}
@@ -558,19 +562,12 @@ function WikiLandingCard({
   const label = t(meta.labelKey);
   const { LandingIcon, accentHex, accentTextClass } = meta;
 
-  // Tinted hover shadow per category (avoids pure black shadows)
-  const hoverShadow = `0 4px 24px ${accentHex}26`; // 15% alpha
-
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-label={label}
-      className="dh-rise group relative h-40 w-full will-change-transform overflow-hidden rounded-2xl border border-border bg-surface-2/50 text-center transition-[transform,background-color,box-shadow] duration-[120ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] hover:border-border-strong hover:bg-surface-2/80 active:scale-[0.97] active:duration-[80ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-inset motion-safe:transition-[transform,background-color,box-shadow]"
+      className="dh-rise group relative h-40 w-full will-change-transform overflow-hidden rounded-2xl border border-border bg-surface-2/50 text-center transition-[transform,background-color,box-shadow] duration-[120ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] hover:border-border-strong hover:bg-surface-2/80 hover:shadow-[0_4px_24px_rgba(0,0,0,0.45)] active:scale-[0.97] active:duration-[80ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-inset motion-safe:transition-[transform,background-color,box-shadow]"
       style={{ animationDelay: `${index * 50}ms` }}
-      // Inline style for tinted hover shadow — applied via JS on hover
-      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.boxShadow = hoverShadow; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "none"; }}
     >
       {/* Ambient radial glow — always visible, intensifies on hover */}
       <div
@@ -743,6 +740,7 @@ function WikiCategoryView({
               inputMode="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              enterKeyHint="search"
               placeholder={t("wiki.searchPlaceholder")}
               aria-label={t("wiki.searchPlaceholder")}
               className="h-11 w-full rounded-2xl border border-border bg-surface-2/40 pl-9 pr-9 text-sm text-foreground placeholder:text-muted/50 transition-colors duration-150 focus:border-gold/40 focus:outline-none focus:ring-1 focus:ring-gold/20"
@@ -759,7 +757,7 @@ function WikiCategoryView({
             )}
           </div>
 
-          <p className="mt-2 px-0.5 text-center text-xs text-muted/60">
+          <p className="mt-2 px-0.5 text-center text-xs text-muted/60" aria-live="polite">
             {t("wiki.resultCount", { count: filtered.length })}
           </p>
         </div>
