@@ -13,7 +13,7 @@ export function CharacterListClient({ characters }: { characters: Character[] })
       {/* Contenido scrollable: header + lista/empty state */}
       <div className="dh-rise flex flex-col gap-6 pb-32">
         {/* Header: solo título + subtitle, sin botón aquí */}
-        <div>
+        <div className="text-center">
           <h1 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
             {t("characters.title")}
           </h1>

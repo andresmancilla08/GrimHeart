@@ -167,7 +167,7 @@ export function CharacterWizard() {
       </div>
 
       {/* Step title */}
-      <div className="shrink-0 px-5 pb-2 pt-4">
+      <div className="shrink-0 px-5 pb-2 pt-4 text-center">
         <h1 className="font-display text-xl font-semibold text-foreground">
           {t(`wizard.${stepKey}.title`)}
         </h1>
