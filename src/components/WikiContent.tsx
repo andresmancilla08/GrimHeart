@@ -274,13 +274,14 @@ function WikiCard({
   const artSrc = getArtSrc(entry);
   const { LandingIcon, accentHex, accentTextClass } = meta;
 
+  const card = entry.category === "card" ? CARDS_BY_ID[entry.id] : undefined;
   const delayStyle = { animationDelay: `${Math.min(index * 30, 300)}ms` };
 
   return (
     <button
       type="button"
       onClick={() => onOpen(entry)}
-      aria-label={name}
+      aria-label={card ? `${name} — ${t("wiki.card.level", { level: card.level })}` : name}
       className="dh-rise group flex h-full min-h-[140px] flex-col overflow-hidden rounded-2xl border border-border bg-surface-2/30 text-center transition-all duration-150 active:scale-[0.98] hover:border-border-strong hover:bg-surface-2/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-inset"
       style={delayStyle}
     >
@@ -307,6 +308,21 @@ function WikiCard({
           >
             <LandingIcon size={34} stroke={1.4} className={`${accentTextClass} opacity-50`} />
           </div>
+        )}
+
+        {/* Level pennant (top-right) */}
+        {card && (
+          <span
+            aria-hidden
+            className="absolute right-2.5 top-0 z-10 flex h-9 w-7 items-center justify-center pb-2.5 font-display text-[13px] font-bold leading-none tabular-nums text-[#3a2606] drop-shadow-[0_2px_4px_rgba(0,0,0,0.55)]"
+            style={{
+              background: "linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 55%, var(--gold-deep) 100%)",
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 50% 66%, 0 100%)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4), inset 0 0 0 1px rgba(255,255,255,0.08)",
+            }}
+          >
+            {card.level}
+          </span>
         )}
       </div>
 
