@@ -100,7 +100,7 @@ export function JournalClient({ characterId, characterName, entries }: Props) {
       {/* Fixed CTA */}
       <div
         className="fixed inset-x-0 bottom-0 z-20 flex flex-col items-center bg-gradient-to-t from-background via-background/95 to-transparent px-[15px] pt-8"
-        style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 15px)" }}
+        style={{ paddingBottom: "15px" }}
       >
         <button
           type="button"

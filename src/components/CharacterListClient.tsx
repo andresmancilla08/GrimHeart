@@ -136,7 +136,7 @@ export function CharacterListClient({ characters }: { characters: Character[] })
       {/* CTA fijo al fondo */}
       <div
         className="fixed bottom-0 left-0 right-0 z-20 flex flex-col items-center px-[15px] pt-8 bg-gradient-to-t from-background via-background/95 to-transparent"
-        style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 15px)" }}
+        style={{ paddingBottom: "15px" }}
       >
         <div className="w-full max-w-lg">
           <Link

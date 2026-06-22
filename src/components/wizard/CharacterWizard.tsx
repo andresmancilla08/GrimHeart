@@ -209,7 +209,7 @@ export function CharacterWizard({ editCharacter }: { editCharacter?: Character }
       {/* Bottom nav */}
       <div
         className="shrink-0 border-t border-border bg-surface/80 px-[15px] pt-3 backdrop-blur-sm"
-        style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 15px)" }}
+        style={{ paddingBottom: "15px" }}
       >
         <div className="flex gap-3">
           <button

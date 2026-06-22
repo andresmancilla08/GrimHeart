@@ -105,7 +105,9 @@ body {
 
 /* ── Mobile safe areas (notch / dynamic island / home indicator) ──────── */
 .pt-safe { padding-top: max(env(safe-area-inset-top), 0.75rem); }
-.pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 0.75rem); }
+/* Sin env(safe-area-inset-bottom): en PWA standalone iOS reservaba el área del home
+   indicator y dejaba un espacio inferior no deseado en toda la app. Solo padding base. */
+.pb-safe { padding-bottom: 0.75rem; }
 .min-h-dvh { min-height: 100dvh; }
 
 /* Real viewport height. En PWA standalone de iOS, 100dvh/100vh/100% se calculan

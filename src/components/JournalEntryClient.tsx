@@ -81,7 +81,7 @@ export function JournalEntryClient({ characterId, entry }: Props) {
       {/* Fixed actions (15px padding container — app rule) */}
       <div
         className="fixed inset-x-0 bottom-0 z-20 flex flex-col items-center gap-1 bg-gradient-to-t from-background via-background/95 to-transparent px-[15px] pt-8"
-        style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 15px)" }}
+        style={{ paddingBottom: "15px" }}
       >
         <div className="flex w-full max-w-lg flex-col gap-2">
           <button
