@@ -151,4 +151,11 @@ export interface Character {
 
   createdAt: string;
   updatedAt: string;
+
+  /**
+   * Derivation rules version baked into the stored stats. Bumped when the
+   * formula for baseline stats changes (e.g. auto-applied ancestry/equipment
+   * bonuses) so a migration can apply the delta exactly once per character.
+   */
+  rulesVersion?: number;
 }

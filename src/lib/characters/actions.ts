@@ -24,15 +24,25 @@ export interface CreateCharacterInput {
   experiences: [string, string];
 }
 
+/**
+ * Derivation rules version. Bump when deriveBaseStats changes so the migration
+ * (scripts/migrate-rules.cjs) can apply the delta exactly once per character.
+ */
+export const CURRENT_RULES_VERSION = 2;
+
 /** Base stats derived from class + equipment + ancestry (level-1 baseline). Shared by create/update. */
 function deriveBaseStats(input: CreateCharacterInput) {
   const classDef = CLASS_DEFS[input.classKey];
   const armor = input.armorId ? ARMOR_BY_ID[input.armorId] : null;
   const primaryWeapon = WEAPONS_BY_ID[input.primaryWeaponId];
+  const secondaryWeapon = input.secondaryWeaponId
+    ? WEAPONS_BY_ID[input.secondaryWeaponId]
+    : null;
 
   let evasion = classDef.evasion;
   let hpMax = classDef.hp;
   let stressMax = 6;
+  let armorScore = armor?.score ?? 0;
 
   // ── Equipment automatics ──
   if (armor?.featureKey === "flexible")  evasion += 1;
@@ -40,6 +50,8 @@ function deriveBaseStats(input: CreateCharacterInput) {
   if (armor?.featureKey === "veryHeavy") evasion -= 2;
   if (primaryWeapon?.featureKey === "massive") evasion -= 1;
   if (primaryWeapon?.featureKey === "heavy")   evasion -= 1;
+  // Round Shield "Protective": +1 Armor Score (passive while equipped).
+  if (secondaryWeapon?.featureKey === "protective") armorScore += 1;
 
   // ── Ancestry passive bonuses applied at character creation (CoreBook ch.1) ──
   // Only the permanent baseline bonuses are auto-applied; situational features
@@ -48,7 +60,7 @@ function deriveBaseStats(input: CreateCharacterInput) {
   if (input.ancestryKey === "giant")  hpMax += 1;     // Endurance: +1 Hit Point slot
   if (input.ancestryKey === "human")  stressMax += 1; // High Stamina: +1 Stress slot
 
-  return { evasion, hpMax, stressMax, armorScore: armor?.score ?? 0 };
+  return { evasion, hpMax, stressMax, armorScore };
 }
 
 export async function createCharacter(input: CreateCharacterInput): Promise<{ id: string } | { error: string }> {
@@ -99,6 +111,7 @@ export async function createCharacter(input: CreateCharacterInput): Promise<{ id
     connections: [],
     createdAt: now,
     updatedAt: now,
+    rulesVersion: CURRENT_RULES_VERSION,
   };
 
   await adminDb()
@@ -193,6 +206,7 @@ export async function updateCharacter(
       itemIds: existing.equipment.itemIds ?? [],
     },
     updatedAt: now,
+    rulesVersion: CURRENT_RULES_VERSION,
   };
 
   await ref.update(update);

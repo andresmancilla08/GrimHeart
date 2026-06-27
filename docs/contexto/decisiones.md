@@ -18,3 +18,9 @@
 - **Qué:** El texto mecánico de las habilidades vive en `dh.ancestryFeat` / `dh.communityFeat` / `dh.classFeat` / `dh.subclassFeat` (objetos/arrays `{name,text}` leídos con `t(key,{returnObjects:true})`). UI labels en `feat.*`. Render con `src/components/FeatureSection.tsx` (reutilizado en hoja y wiki).
 - **Por qué:** Cada entidad guardaba solo nombre + `_desc` + `_lore` (sabor), nunca la habilidad de regla (ej. Marino → «Conoce la marea»). Estructura anidada evita cientos de claves planas y soporta features variables por entidad.
 - **Descartado:** Claves i18n planas por feature (inmanejable con 1-3 features variables) y archivo TS de datos aparte (duplica estructura; rompe consistencia i18n).
+
+### Stats automáticos (ancestría + equipo) y `rulesVersion` — Vigente
+- **Qué:** `deriveBaseStats` (en `actions.ts`) aplica al crear/editar: bonos pasivos de ancestría (Simiah +1 Evasión, Gigante +1 PV, Humano +1 Estrés), modificadores de Evasión de armadura/arma y +1 Armadura del Escudo Redondo (Protector). El doc guarda `rulesVersion` (actual = 2).
+- **Por qué:** Que la hoja muestre cifras correctas sin cálculo manual. `rulesVersion` permite migrar exactamente una vez.
+- **Migración:** `scripts/migrate-rules.cjs` (ADC + `FIREBASE_PROJECT_ID`). Suma **deltas** (no sobrescribe) para no romper subidas de nivel; idempotente por `rulesVersion`. `--apply` para escribir; sin flag = dry-run.
+- **Nota:** Features situacionales NO se pliegan a cifras; se muestran como texto en la sección Habilidades.
