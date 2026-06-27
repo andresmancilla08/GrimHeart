@@ -368,6 +368,806 @@
       "wanderborne_lore": "Ser parte de una comunidad nacida en el camino significa que has vivido como nómada, renunciando a un hogar permanente y conociendo una amplia variedad de culturas. A diferencia de muchas comunidades definidas por su localidad, los del camino se definen por su estilo de vida itinerante. Debido a sus frecuentes desplazamientos, los del camino conceden menos valor a la acumulación de posesiones materiales y privilegian la adquisición de información, habilidades y conexiones. Mientras que a algunos del camino los une un ethos común, como una religión o un conjunto de valores políticos o económicos, otros se reúnen tras una tragedia compartida, como la pérdida de su hogar o sus tierras. Sea cual sea el motivo, los peligros de la vida en el camino y la decisión de seguir recorriéndolo juntos hacen que los del camino sean conocidos por su lealtad inquebrantable.\n\nLos del camino suelen ser inescrutables, magnánimos, alegres, confiables, perspicaces y poco convencionales.",
       "wildborne_lore": "Ser parte de una comunidad nacida en lo salvaje significa que viviste en lo más profundo del bosque. Las comunidades de lo salvaje se definen por su dedicación a la conservación de sus tierras, y muchas mantienen fuertes vínculos religiosos o culturales con la fauna entre la que viven. Esto da lugar a avances arquitectónicos y tecnológicos únicos que privilegian la sostenibilidad por encima de los resultados rápidos y de alto rendimiento. Es un rasgo distintivo de las sociedades de lo salvaje integrar sus aldeas y ciudades con el entorno natural y evitar perturbar la vida de las plantas y los animales. Mientras que algunos construyen sus moradas en lo alto de las ramas de los árboles, otros establecen sus hogares en el suelo, bajo el dosel del bosque. No es raro que los de lo salvaje permanezcan retraídos y ocultos dentro de sus hogares boscosos.\n\nLos de lo salvaje suelen ser recios, leales, protectores, retraídos, sagaces y vibrantes."
     },
+    "ancestryFeat": {
+      "clank": [
+        {
+          "name": "Diseño con propósito",
+          "text": "Decide quién te creó y con qué propósito. Al crear tu personaje, elige una de tus Experiencias que mejor se alinee con ese propósito y obtén una bonificación permanente de +1 a la misma."
+        },
+        {
+          "name": "Eficiente",
+          "text": "Cuando tomas un descanso corto, puedes elegir una acción de descanso largo en lugar de una acción de descanso corto."
+        }
+      ],
+      "drakona": [
+        {
+          "name": "Escamas",
+          "text": "Tus escamas actúan como protección natural. Cuando fueras a recibir daño Severo, puedes marcar un Estrés para marcar 1 Punto de Vida menos."
+        },
+        {
+          "name": "Aliento elemental",
+          "text": "Elige un elemento para tu aliento (como electricidad, fuego o hielo). Puedes usar este aliento contra un objetivo o grupo de objetivos dentro de rango Muy Cercano, tratándolo como un arma de Instinto que inflige d8 de daño mágico usando tu Competencia."
+        }
+      ],
+      "dwarf": [
+        {
+          "name": "Piel gruesa",
+          "text": "Cuando recibes daño Menor, puedes marcar 2 Estrés en lugar de marcar un Punto de Vida."
+        },
+        {
+          "name": "Fortaleza acrecentada",
+          "text": "Gasta 3 Esperanza para reducir a la mitad el daño físico entrante."
+        }
+      ],
+      "elf": [
+        {
+          "name": "Reacciones rápidas",
+          "text": "Marca un Estrés para obtener ventaja en una tirada de reacción."
+        },
+        {
+          "name": "Trance celestial",
+          "text": "Durante un descanso, puedes entrar en trance para elegir una acción de tiempo libre adicional."
+        }
+      ],
+      "faerie": [
+        {
+          "name": "Tuerce-suerte",
+          "text": "Una vez por sesión, después de que tú o un aliado dispuesto dentro de rango Cercano haga una tirada de acción, puedes gastar 3 Esperanza para volver a tirar los Dados de Dualidad."
+        },
+        {
+          "name": "Alas",
+          "text": "Puedes volar. Mientras vuelas, puedes marcar un Estrés después de que un adversario haga un ataque contra ti para obtener una bonificación de +2 a tu Evasión contra ese ataque."
+        }
+      ],
+      "faun": [
+        {
+          "name": "Salto caprino",
+          "text": "Puedes saltar a cualquier punto dentro de rango Cercano como si usaras movimiento normal, lo que te permite franquear obstáculos, saltar sobre huecos o escalar barreras con facilidad."
+        },
+        {
+          "name": "Coz",
+          "text": "Cuando tienes éxito en un ataque contra un objetivo dentro de rango Cuerpo a cuerpo, puedes marcar un Estrés para impulsarte de una coz contra él, infligiendo 2d6 de daño adicional y empujándote a ti o al objetivo hasta rango Muy Cercano."
+        }
+      ],
+      "firbolg": [
+        {
+          "name": "Embestida",
+          "text": "Cuando tienes éxito en una Tirada de Agilidad para moverte desde rango Lejano o Muy Lejano hasta rango Cuerpo a cuerpo con uno o más objetivos, puedes marcar un Estrés para infligir 1d12 de daño físico a todos los objetivos dentro de rango Cuerpo a cuerpo."
+        },
+        {
+          "name": "Inquebrantable",
+          "text": "Cuando fueras a marcar un Estrés, tira un d6. Con un resultado de 6, no lo marcas."
+        }
+      ],
+      "fungril": [
+        {
+          "name": "Red fúngica",
+          "text": "Haz una Tirada de Instinto (12) para usar tu red de micelio y hablar con otros de tu ancestría. Si tienes éxito, puedes comunicarte a cualquier distancia."
+        },
+        {
+          "name": "Conexión con la muerte",
+          "text": "Mientras tocas un cadáver que murió hace poco, puedes marcar un Estrés para extraer del cadáver un recuerdo relacionado con una emoción o sensación específica de tu elección."
+        }
+      ],
+      "galapa": [
+        {
+          "name": "Caparazón",
+          "text": "Obtén una bonificación a tus umbrales de daño igual a tu Competencia."
+        },
+        {
+          "name": "Replegarse",
+          "text": "Marca un Estrés para replegarte dentro de tu caparazón. Mientras estás en tu caparazón, tienes resistencia al daño físico, tienes desventaja en las tiradas de acción y no puedes moverte."
+        }
+      ],
+      "giant": [
+        {
+          "name": "Aguante",
+          "text": "Obtén una casilla de Punto de Vida adicional al crear tu personaje."
+        },
+        {
+          "name": "Alcance",
+          "text": "Trata cualquier arma, habilidad, hechizo u otro rasgo que tenga rango Cuerpo a cuerpo como si tuviera rango Muy Cercano en su lugar."
+        }
+      ],
+      "goblin": [
+        {
+          "name": "Paso firme",
+          "text": "Ignoras la desventaja en las Tiradas de Agilidad."
+        },
+        {
+          "name": "Sentido del peligro",
+          "text": "Una vez por descanso, marca un Estrés para forzar a un adversario a volver a tirar un ataque contra ti o contra un aliado dentro de rango Muy Cercano."
+        }
+      ],
+      "halfling": [
+        {
+          "name": "Portador de suerte",
+          "text": "Al inicio de cada sesión, todos en tu grupo obtienen una Esperanza."
+        },
+        {
+          "name": "Brújula interna",
+          "text": "Cuando sacas un 1 en tu Dado de Esperanza, puedes volver a tirarlo."
+        }
+      ],
+      "human": [
+        {
+          "name": "Gran resistencia",
+          "text": "Obtén una casilla de Estrés adicional al crear tu personaje."
+        },
+        {
+          "name": "Adaptabilidad",
+          "text": "Cuando fallas una tirada que utilizó una de tus Experiencias, puedes marcar un Estrés para volver a tirar."
+        }
+      ],
+      "infernis": [
+        {
+          "name": "Sin miedo",
+          "text": "Cuando tiras con Miedo, puedes marcar 2 Estrés para convertirla en una tirada con Esperanza en su lugar."
+        },
+        {
+          "name": "Semblante terrible",
+          "text": "Tienes ventaja en las tiradas para intimidar a criaturas hostiles."
+        }
+      ],
+      "katari": [
+        {
+          "name": "Instintos felinos",
+          "text": "Cuando haces una Tirada de Agilidad, puedes gastar 2 Esperanza para volver a tirar tu Dado de Esperanza."
+        },
+        {
+          "name": "Garras retráctiles",
+          "text": "Haz una Tirada de Agilidad para arañar a un objetivo dentro de rango Cuerpo a cuerpo. Si tienes éxito, queda temporalmente Vulnerable."
+        }
+      ],
+      "orc": [
+        {
+          "name": "Recio",
+          "text": "Cuando te queda 1 Punto de Vida, los ataques contra ti tienen desventaja."
+        },
+        {
+          "name": "Colmillos",
+          "text": "Cuando tienes éxito en un ataque contra un objetivo dentro de rango Cuerpo a cuerpo, puedes gastar una Esperanza para cornear al objetivo con tus colmillos, infligiendo 1d6 de daño adicional."
+        }
+      ],
+      "ribbet": [
+        {
+          "name": "Anfibio",
+          "text": "Puedes respirar y moverte con naturalidad bajo el agua."
+        },
+        {
+          "name": "Lengua larga",
+          "text": "Puedes usar tu lengua larga para agarrar cosas dentro de rango Cercano. Marca un Estrés para usar tu lengua como un arma de Destreza de rango Cercano que inflige d12 de daño físico usando tu Competencia."
+        }
+      ],
+      "simiah": [
+        {
+          "name": "Trepador nato",
+          "text": "Tienes ventaja en las Tiradas de Agilidad que impliquen mantener el equilibrio y trepar."
+        },
+        {
+          "name": "Ágil",
+          "text": "Obtén una bonificación permanente de +1 a tu Evasión al crear tu personaje."
+        }
+      ]
+    },
+    "communityFeat": {
+      "highborne": {
+        "name": "Privilegio",
+        "text": "Tienes ventaja en las tiradas para tratar con nobles, negociar precios o aprovechar tu reputación para conseguir lo que quieres."
+      },
+      "loreborne": {
+        "name": "Erudito",
+        "text": "Tienes ventaja en las tiradas que impliquen la historia, la cultura o la política de una persona o lugar prominente."
+      },
+      "orderborne": {
+        "name": "Devoto",
+        "text": "Anota tres dichos o valores que tu crianza inculcó en ti. Una vez por descanso, cuando describas cómo encarnas uno de estos principios mediante tu acción actual, puedes tirar un d20 como tu Dado de Esperanza."
+      },
+      "ridgeborne": {
+        "name": "Firme",
+        "text": "Tienes ventaja en las tiradas para recorrer acantilados y cornisas peligrosas, navegar entornos hostiles y usar tu conocimiento de supervivencia."
+      },
+      "seaborne": {
+        "name": "Conoce la marea",
+        "text": "Puedes sentir el flujo y reflujo de la vida. Cuando tiras con Miedo, coloca una ficha en tu carta de comunidad. Puedes tener una cantidad de fichas igual a tu nivel. Antes de hacer una tirada de acción, puedes gastar cualquier número de estas fichas para obtener una bonificación de +1 a la tirada por cada ficha gastada. Al final de cada sesión, elimina todas las fichas no gastadas."
+      },
+      "slyborne": {
+        "name": "Granuja",
+        "text": "Tienes ventaja en las tiradas para negociar con criminales, detectar mentiras o encontrar un lugar seguro donde esconderte."
+      },
+      "underborne": {
+        "name": "Vida en penumbra",
+        "text": "Cuando estás en una zona con poca luz o sombras densas, tienes ventaja en las tiradas para esconderte, investigar o percibir detalles dentro de esa zona."
+      },
+      "wanderborne": {
+        "name": "Petate nómada",
+        "text": "Añade un Petate Nómada a tu inventario. Una vez por sesión, puedes gastar una Esperanza para meter la mano en este petate y sacar un objeto mundano útil para tu situación. Trabaja con el DJ para determinar qué objeto sacas."
+      },
+      "wildborne": {
+        "name": "Pies ligeros",
+        "text": "Tu movimiento es naturalmente silencioso. Tienes ventaja en las tiradas para moverte sin ser oído."
+      }
+    },
+    "classFeat": {
+      "bard": {
+        "hope": {
+          "name": "Montar una escena",
+          "text": "Gasta 3 Esperanza para Distraer temporalmente a un objetivo dentro de rango Cercano, dándole una penalización de -2 a su Dificultad."
+        },
+        "features": [
+          {
+            "name": "Arenga",
+            "text": "Una vez por sesión, describe cómo arengas al grupo y date a ti mismo y a cada uno de tus aliados un Dado de Arenga. En el nivel 1, tu Dado de Arenga es un d6. Un PJ puede gastar su Dado de Arenga para tirarlo, sumando el resultado a su tirada de acción, tirada de reacción, tirada de daño, o para eliminar una cantidad de Estrés igual al resultado. Al final de cada sesión, elimina todos los Dados de Arenga no gastados. En el nivel 5, tu Dado de Arenga aumenta a un d8."
+          }
+        ]
+      },
+      "druid": {
+        "hope": {
+          "name": "Evolución",
+          "text": "Gasta 3 Esperanza para transformarte en una Forma Bestial sin marcar un Estrés. Cuando lo haces, elige un rasgo para aumentar en +1 hasta que abandones esa Forma Bestial."
+        },
+        "features": [
+          {
+            "name": "Forma Bestial",
+            "text": "Marca un Estrés para transformarte mágicamente en una criatura de tu nivel de juego o inferior de la lista de Formas Bestiales. Puedes abandonar esta forma en cualquier momento. Mientras estás transformado, no puedes usar armas ni lanzar hechizos de cartas de dominio, pero sí puedes usar otros rasgos o habilidades a los que tengas acceso. Los hechizos que lanzaste antes de transformarte siguen activos y duran su duración normal, y puedes hablar y comunicarte con normalidad. Además, obtienes los rasgos de la Forma Bestial, sumas su bonificación de Evasión a tu Evasión y usas el rasgo indicado en sus estadísticas para tu ataque. Mientras estás en una Forma Bestial, tu armadura pasa a formar parte de tu cuerpo y marcas casillas de Armadura como siempre; al abandonar la Forma Bestial, esas casillas de Armadura marcadas siguen marcadas. Si marcas tu último Punto de Vida, abandonas automáticamente esta forma."
+          },
+          {
+            "name": "Toque silvestre",
+            "text": "Puedes producir a voluntad efectos inofensivos y sutiles relacionados con la naturaleza, como hacer que una flor crezca rápidamente, invocar una leve ráfaga de viento o encender una fogata."
+          }
+        ]
+      },
+      "guardian": {
+        "hope": {
+          "name": "Tanque de vanguardia",
+          "text": "Gasta 3 Esperanza para vaciar 2 casillas de Armadura."
+        },
+        "features": [
+          {
+            "name": "Imparable",
+            "text": "Una vez por descanso largo, puedes volverte Imparable. Obtienes un Dado Imparable. En el nivel 1, tu Dado Imparable es un d4. Colócalo en tu hoja de personaje en el espacio indicado, empezando con el valor 1 hacia arriba. Después de hacer una tirada de daño que inflige 1 o más Puntos de Vida a un objetivo, aumenta el valor del Dado Imparable en uno. Cuando el valor del dado fuera a superar su valor máximo o cuando termina la escena, retira el dado y dejas de estar Imparable. En el nivel 5, tu Dado Imparable aumenta a un d6. Mientras estás Imparable, obtienes los siguientes beneficios: reduces la severidad del daño físico en un umbral (Severo a Mayor, Mayor a Menor, Menor a Ninguno); sumas el valor actual del Dado Imparable a tu tirada de daño; no puedes quedar Restringido ni Vulnerable."
+          }
+        ]
+      },
+      "ranger": {
+        "hope": {
+          "name": "Contenerlos",
+          "text": "Gasta 3 Esperanza cuando tienes éxito en un ataque con un arma para usar esa misma tirada contra dos adversarios adicionales dentro del rango del ataque."
+        },
+        "features": [
+          {
+            "name": "Foco del Montaraz",
+            "text": "Gasta una Esperanza y haz un ataque contra un objetivo. Si tienes éxito, inflige el daño normal de tu ataque y convierte temporalmente al objetivo del ataque en tu Foco. Hasta que este rasgo termine o conviertas a otra criatura en tu Foco, obtienes los siguientes beneficios contra tu Foco: sabes con precisión en qué dirección se encuentra; cuando le infliges daño, debe marcar un Estrés; cuando fallas un ataque contra él, puedes terminar tu rasgo Foco del Montaraz para volver a tirar tus Dados de Dualidad."
+          }
+        ]
+      },
+      "rogue": {
+        "hope": {
+          "name": "Esquiva del Pícaro",
+          "text": "Gasta 3 Esperanza para obtener una bonificación de +2 a tu Evasión hasta la próxima vez que un ataque tenga éxito contra ti. De lo contrario, esta bonificación dura hasta tu próximo descanso."
+        },
+        "features": [
+          {
+            "name": "Encubierto",
+            "text": "Siempre que fueras a estar Oculto, en su lugar quedas Encubierto. Además de los beneficios de la condición Oculto, mientras estás Encubierto permaneces sin ser visto si te mantienes inmóvil cuando un adversario se mueve a un lugar desde donde normalmente te vería. Después de hacer un ataque o terminar un movimiento dentro de la línea de visión de un adversario, dejas de estar Encubierto."
+          },
+          {
+            "name": "Ataque furtivo",
+            "text": "Cuando tienes éxito en un ataque mientras estás Encubierto o mientras un aliado está dentro de rango Cuerpo a cuerpo de tu objetivo, suma a tu tirada de daño una cantidad de d6 igual a tu nivel de juego."
+          }
+        ]
+      },
+      "seraph": {
+        "hope": {
+          "name": "Soporte vital",
+          "text": "Gasta 3 Esperanza para eliminar un Punto de Vida de un aliado dentro de rango Cercano."
+        },
+        "features": [
+          {
+            "name": "Dados de Plegaria",
+            "text": "Al inicio de cada sesión, tira una cantidad de d4 igual a tu Rasgo de Lanzamiento de Conjuros de subclase y colócalos en tu hoja de personaje en el espacio indicado. Estos son tus Dados de Plegaria. Puedes gastar cualquier número de Dados de Plegaria para ayudarte a ti mismo o a un aliado dentro de rango Lejano. Puedes usar el valor de un dado gastado para reducir el daño entrante, sumarlo al resultado de una tirada después de hacerla, u obtener Esperanza igual al resultado. Al final de cada sesión, elimina todos los Dados de Plegaria no gastados."
+          }
+        ]
+      },
+      "sorcerer": {
+        "hope": {
+          "name": "Magia volátil",
+          "text": "Gasta 3 Esperanza para volver a tirar cualquier número de tus dados de daño en un ataque que inflige daño mágico."
+        },
+        "features": [
+          {
+            "name": "Sentido arcano",
+            "text": "Puedes percibir la presencia de personas y objetos mágicos dentro de rango Cercano."
+          },
+          {
+            "name": "Ilusión menor",
+            "text": "Haz una Tirada de Lanzamiento de Conjuros (10). Si tienes éxito, creas una ilusión visual menor no mayor que tú dentro de rango Cercano. Esta ilusión es convincente para cualquiera a rango Cercano o más lejos."
+          },
+          {
+            "name": "Canalizar poder bruto",
+            "text": "Una vez por descanso largo, puedes colocar una carta de dominio de tu equipo activo en tu bóveda y elegir entre: obtener Esperanza igual al nivel de la carta; o potenciar un hechizo que inflige daño, obteniendo una bonificación a tu tirada de daño igual al doble del nivel de la carta."
+          }
+        ]
+      },
+      "warrior": {
+        "hope": {
+          "name": "Sin piedad",
+          "text": "Gasta 3 Esperanza para obtener una bonificación de +1 a tus tiradas de ataque hasta tu próximo descanso."
+        },
+        "features": [
+          {
+            "name": "Ataque de oportunidad",
+            "text": "Si un adversario dentro de rango Cuerpo a cuerpo intenta abandonar ese rango, haz una tirada de reacción usando un rasgo de tu elección contra su Dificultad. Elige un efecto si tienes éxito, o dos si tienes un éxito crítico: no puede moverse de donde está; le infliges daño igual al daño de tu arma principal; te mueves con él."
+          },
+          {
+            "name": "Adiestramiento de combate",
+            "text": "Ignoras la carga al equipar armas. Cuando infliges daño físico, obtienes una bonificación a tu tirada de daño igual a tu nivel."
+          }
+        ]
+      },
+      "wizard": {
+        "hope": {
+          "name": "Esta vez no",
+          "text": "Gasta 3 Esperanza para forzar a un adversario dentro de rango Lejano a volver a tirar un ataque o una tirada de daño."
+        },
+        "features": [
+          {
+            "name": "Prestidigitación",
+            "text": "Puedes producir a voluntad efectos mágicos inofensivos y sutiles. Por ejemplo, puedes cambiar el color de un objeto, crear un olor, encender una vela, hacer flotar un objeto diminuto, iluminar una sala o reparar un objeto pequeño."
+          },
+          {
+            "name": "Patrones extraños",
+            "text": "Elige un número entre 1 y 12. Cuando sacas ese número en un Dado de Dualidad, obtén una Esperanza o elimina un Estrés. Puedes cambiar este número cuando tomas un descanso largo."
+          }
+        ]
+      }
+    },
+    "subclassFeat": {
+      "troubadour": {
+        "foundation": [
+          {
+            "name": "Intérprete dotado",
+            "text": "Describe cómo interpretas para los demás. Puedes tocar cada canción una vez por descanso largo: Canción relajante (tú y todos los aliados dentro de rango Cercano elimináis un Punto de Vida); Canción épica (haz que un objetivo dentro de rango Cercano quede temporalmente Vulnerable); Canción desgarradora (tú y todos los aliados dentro de rango Cercano obtenéis una Esperanza)."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Maestro",
+            "text": "Tus canciones de arenga templan el valor de quienes las escuchan. Cuando das un Dado de Arenga a un aliado, este puede obtener una Esperanza o eliminar un Estrés."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Virtuoso",
+            "text": "Estás entre los mejores de tu oficio y tu habilidad no tiene límites. Puedes tocar cada canción de tu rasgo «Intérprete dotado» dos veces en lugar de una por descanso largo."
+          }
+        ]
+      },
+      "wordsmith": {
+        "foundation": [
+          {
+            "name": "Discurso conmovedor",
+            "text": "Una vez por descanso largo, puedes dar un discurso sincero e inspirador. Todos los aliados dentro de rango Lejano eliminan 2 Estrés."
+          },
+          {
+            "name": "Corazón de poeta",
+            "text": "Después de hacer una tirada de acción para impresionar, persuadir u ofender a alguien, puedes gastar una Esperanza para sumar un d4 a la tirada."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Elocuente",
+            "text": "Tus palabras conmovedoras elevan la moral. Una vez por sesión, cuando animas a un aliado, puedes hacer una de las siguientes cosas: permitirle encontrar un objeto o herramienta mundana que necesite; Ayudar a un Aliado sin gastar Esperanza; darle una acción de tiempo libre adicional durante su próximo descanso."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Poesía épica",
+            "text": "Tu Dado de Arenga aumenta a un d10. Además, cuando Ayudas a un Aliado, puedes narrar el momento como si escribieras el relato de su heroísmo en unas memorias. Cuando lo haces, tira un d10 como tu dado de ventaja."
+          }
+        ]
+      },
+      "wardenElements": {
+        "foundation": [
+          {
+            "name": "Encarnación elemental",
+            "text": "Marca un Estrés para Canalizar uno de los siguientes elementos hasta que recibas daño Severo o hasta tu próximo descanso: Fuego (cuando un adversario dentro de rango Cuerpo a cuerpo te inflige daño, recibe 1d10 de daño mágico); Tierra (obtén una bonificación a tus umbrales de daño igual a tu Competencia); Agua (cuando infliges daño a un adversario dentro de rango Cuerpo a cuerpo, todos los demás adversarios dentro de rango Muy Cercano deben marcar un Estrés); Aire (puedes flotar, obteniendo ventaja en las Tiradas de Agilidad)."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Aura elemental",
+            "text": "Una vez por descanso mientras Canalizas, puedes asumir un aura acorde a tu elemento. El aura afecta a los objetivos dentro de rango Cercano hasta que termina tu Canalización: Fuego (cuando un adversario marca 1 o más Puntos de Vida, también debe marcar un Estrés); Tierra (tus aliados obtienen una bonificación de +1 a Fuerza); Agua (cuando un adversario te inflige daño, puedes marcar un Estrés para moverlo a cualquier punto dentro de rango Muy Cercano de donde está); Aire (cuando tú o un aliado recibís daño de un ataque más allá del rango Cuerpo a cuerpo, reduce el daño en 1d8)."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Dominio elemental",
+            "text": "Encarnas aún más tu elemento. Mientras Canalizas, obtienes el siguiente beneficio: Fuego (bonificación de +1 a tu Competencia para ataques y hechizos que infligen daño); Tierra (cuando fueras a marcar Puntos de Vida, tira un d6 por cada Punto de Vida marcado; por cada resultado de 6, reduce en 1 el número de Puntos de Vida que marcas); Agua (cuando un ataque contra ti tiene éxito, puedes marcar un Estrés para que el atacante quede temporalmente Vulnerable); Aire (bonificación de +1 a tu Evasión y puedes volar)."
+          }
+        ]
+      },
+      "wardenRenewal": {
+        "foundation": [
+          {
+            "name": "Claridad de la naturaleza",
+            "text": "Una vez por descanso largo, puedes crear un espacio de serenidad natural dentro de rango Cercano. Cuando pasas unos minutos descansando dentro del espacio, elimina Estrés igual a tu Instinto, distribuido a tu elección entre tú y tus aliados."
+          },
+          {
+            "name": "Regeneración",
+            "text": "Toca a una criatura y gasta 3 Esperanza. Esa criatura elimina 1d4 Puntos de Vida."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Alcance regenerativo",
+            "text": "Puedes apuntar a criaturas dentro de rango Muy Cercano con tu rasgo «Regeneración»."
+          },
+          {
+            "name": "Protección del Guardián",
+            "text": "Una vez por descanso largo, gasta 2 Esperanza para eliminar 2 Puntos de Vida en 1d4 aliados dentro de rango Cercano."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Defensor",
+            "text": "Tu transformación animal encarna un espíritu guardián sanador. Cuando estás en Forma Bestial y un aliado dentro de rango Cercano marca 2 o más Puntos de Vida, puedes marcar un Estrés para reducir en 1 el número de Puntos de Vida que marca."
+          }
+        ]
+      },
+      "stalwart": {
+        "foundation": [
+          {
+            "name": "Inquebrantable",
+            "text": "Obtén una bonificación permanente de +1 a tus umbrales de daño."
+          },
+          {
+            "name": "Voluntad de hierro",
+            "text": "Cuando recibes daño físico, puedes marcar una casilla de Armadura adicional para reducir la severidad."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Implacable",
+            "text": "Obtén una bonificación permanente de +2 a tus umbrales de daño."
+          },
+          {
+            "name": "Compañeros de armas",
+            "text": "Cuando un aliado dentro de rango Muy Cercano recibe daño, puedes marcar una casilla de Armadura para reducir la severidad en un umbral."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Impávido",
+            "text": "Obtén una bonificación permanente de +3 a tus umbrales de daño."
+          },
+          {
+            "name": "Protector leal",
+            "text": "Cuando un aliado dentro de rango Cercano tiene 2 o menos Puntos de Vida y fuera a recibir daño, puedes marcar un Estrés para correr a su lado y recibir el daño en su lugar."
+          }
+        ]
+      },
+      "vengeance": {
+        "foundation": [
+          {
+            "name": "Sosegado",
+            "text": "Obtén una casilla de Estrés adicional."
+          },
+          {
+            "name": "Venganza",
+            "text": "Cuando un adversario dentro de rango Cuerpo a cuerpo tiene éxito en un ataque contra ti, puedes marcar 2 Estrés para forzar al atacante a marcar un Punto de Vida."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Acto de represalia",
+            "text": "Cuando un adversario daña a un aliado dentro de rango Cuerpo a cuerpo, obtienes una bonificación de +1 a tu Competencia para el próximo ataque exitoso que hagas contra ese adversario."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Némesis",
+            "text": "Gasta 2 Esperanza para Priorizar a un adversario hasta tu próximo descanso. Cuando haces un ataque contra tu adversario Priorizado, puedes intercambiar los resultados de tus Dados de Esperanza y Miedo. Solo puedes Priorizar a un adversario a la vez."
+          }
+        ]
+      },
+      "beastbound": {
+        "foundation": [
+          {
+            "name": "Compañero",
+            "text": "Tienes un compañero animal de tu elección (a discreción del DJ). Permanece a tu lado a menos que le indiques lo contrario. Toma la hoja de Compañero del Montaraz. Cuando subes de nivel a tu personaje, elige también una opción de subida de nivel para tu compañero de esta hoja."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Adiestramiento experto",
+            "text": "Elige una opción de subida de nivel adicional para tu compañero."
+          },
+          {
+            "name": "Vínculo de batalla",
+            "text": "Cuando un adversario te ataca mientras está dentro del rango Cuerpo a cuerpo de tu compañero, obtienes una bonificación de +2 a tu Evasión contra el ataque."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Adiestramiento avanzado",
+            "text": "Elige dos opciones de subida de nivel adicionales para tu compañero."
+          },
+          {
+            "name": "Amigo leal",
+            "text": "Una vez por descanso largo, cuando el daño de un ataque fuera a marcar el último Estrés de tu compañero o tu último Punto de Vida y estáis dentro de rango Cercano el uno del otro, tú o tu compañero podéis correr al lado del otro y recibir ese daño en su lugar."
+          }
+        ]
+      },
+      "wayfinder": {
+        "foundation": [
+          {
+            "name": "Depredador despiadado",
+            "text": "Cuando haces una tirada de daño, puedes marcar un Estrés para obtener una bonificación de +1 a tu Competencia. Además, cuando infliges daño Severo a un adversario, este debe marcar un Estrés."
+          },
+          {
+            "name": "Camino certero",
+            "text": "Cuando viajas a un lugar que has visitado antes o llevas un objeto que ha estado en ese lugar previamente, puedes identificar el camino más corto y directo a tu destino."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Depredador esquivo",
+            "text": "Cuando tu Foco hace un ataque contra ti, obtienes una bonificación de +2 a tu Evasión contra el ataque."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Depredador supremo",
+            "text": "Antes de hacer una tirada de ataque contra tu Foco, puedes gastar una Esperanza. Si el ataque tiene éxito, retiras un Miedo de la reserva de Miedo del DJ."
+          }
+        ]
+      },
+      "nightwalker": {
+        "foundation": [
+          {
+            "name": "Caminante de sombras",
+            "text": "Puedes moverte de sombra en sombra. Cuando te mueves a una zona de oscuridad o a una sombra proyectada por otra criatura u objeto, puedes marcar un Estrés para desaparecer de donde estás y reaparecer dentro de otra sombra dentro de rango Lejano. Cuando reapareces, quedas Encubierto."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Nube oscura",
+            "text": "Haz una Tirada de Lanzamiento de Conjuros (15). Si tienes éxito, crea una nube oscura temporal que cubre cualquier zona dentro de rango Cercano. Cualquiera dentro de esta nube no puede ver fuera de ella, y cualquiera fuera no puede ver dentro. Se te considera Encubierto frente a cualquier adversario para quien la nube bloquee la línea de visión."
+          },
+          {
+            "name": "Adrenalina",
+            "text": "Mientras estás Vulnerable, suma tu nivel a tus tiradas de daño."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Sombra fugaz",
+            "text": "Obtén una bonificación permanente de +1 a tu Evasión. Puedes usar tu rasgo «Caminante de sombras» para moverte dentro de rango Muy Lejano."
+          },
+          {
+            "name": "Acto de desaparición",
+            "text": "Marca un Estrés para quedar Encubierto en cualquier momento. Cuando estás Encubierto por este rasgo, eliminas automáticamente la condición Restringido si la tienes. Permaneces Encubierto de este modo hasta que tiras con Miedo o hasta tu próximo descanso."
+          }
+        ]
+      },
+      "syndicate": {
+        "foundation": [
+          {
+            "name": "Bien conectado",
+            "text": "Cuando llegas a un pueblo o entorno prominente, conoces a alguien que llama a este lugar su hogar. Dale un nombre, anota cómo crees que podría serte útil y elige un hecho de la siguiente lista: me debe un favor, pero será difícil de encontrar; va a pedir algo a cambio; siempre está metido en muchos problemas; estuvimos juntos, es una larga historia; no nos separamos en buenos términos."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Contactos en todas partes",
+            "text": "Una vez por sesión, puedes recurrir brevemente a un contacto turbio. Elige uno de los siguientes beneficios y describe qué lo trajo aquí para ayudarte en este momento: te proporciona un puñado de oro, una herramienta única o un objeto mundano que la situación requiere; en tu próxima tirada de acción, su ayuda proporciona una bonificación de +3 al resultado de tu Dado de Esperanza o de Miedo; la próxima vez que infliges daño, dispara desde las sombras, sumando 2d8 a tu tirada de daño."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Refuerzo fiable",
+            "text": "Puedes usar tu rasgo «Contactos en todas partes» tres veces por sesión. Las siguientes opciones se añaden a la lista de beneficios que puedes elegir al usar ese rasgo: cuando marcas 1 o más Puntos de Vida, pueden salir corriendo a protegerte, reduciendo en 1 los Puntos de Vida marcados; cuando haces una Tirada de Presencia en una conversación, te respaldan, y puedes tirar un d20 como tu Dado de Esperanza."
+          }
+        ]
+      },
+      "divineWielder": {
+        "foundation": [
+          {
+            "name": "Arma espiritual",
+            "text": "Cuando tienes equipada un arma con rango Cuerpo a cuerpo o Muy Cercano, esta puede volar de tu mano para atacar a un adversario dentro de rango Cercano y luego regresar a ti. Puedes marcar un Estrés para apuntar a un adversario adicional dentro de rango con la misma tirada de ataque."
+          },
+          {
+            "name": "Toque clemente",
+            "text": "Una vez por descanso largo, toca a una criatura y elimina 2 Puntos de Vida o 2 Estrés de ella."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Devoto",
+            "text": "Cuando tiras tus Dados de Plegaria, puedes tirar un dado adicional y descartar el resultado más bajo. Además, puedes usar tu rasgo «Toque clemente» dos veces en lugar de una por descanso largo."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Resonancia sagrada",
+            "text": "Cuando tiras el daño de tu rasgo «Arma espiritual», si alguno de los resultados de los dados coincide, duplica el valor de cada dado coincidente. Por ejemplo, si sacas dos 5, cuentan como dos 10."
+          }
+        ]
+      },
+      "wingedSentinel": {
+        "foundation": [
+          {
+            "name": "Alas de luz",
+            "text": "Puedes volar. Mientras vuelas, puedes hacer lo siguiente: marcar un Estrés para levantar y transportar a otra criatura dispuesta de aproximadamente tu tamaño o menor; gastar una Esperanza para infligir 1d8 de daño adicional en un ataque exitoso."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Semblante etéreo",
+            "text": "Tu semblante sobrenatural infunde asombro y temor. Mientras vuelas, tienes ventaja en las Tiradas de Presencia. Cuando tienes éxito con Esperanza en una Tirada de Presencia, puedes retirar un Miedo de la reserva de Miedo del DJ en lugar de obtener Esperanza."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Ascendente",
+            "text": "Obtén una bonificación permanente de +4 a tu umbral de daño Severo."
+          },
+          {
+            "name": "Poder de los dioses",
+            "text": "Mientras vuelas, infliges 1d12 de daño adicional en lugar de 1d8 con tu rasgo «Alas de luz»."
+          }
+        ]
+      },
+      "elementalOrigin": {
+        "foundation": [
+          {
+            "name": "Elementalista",
+            "text": "Elige uno de los siguientes elementos al crear tu personaje: aire, tierra, fuego, rayo, agua. Puedes moldear este elemento en efectos inofensivos. Además, gasta una Esperanza y describe cómo tu control sobre este elemento ayuda a una tirada de acción que estás a punto de hacer, y luego obtén una bonificación de +2 a la tirada o una bonificación de +3 al daño de la tirada."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Evasión natural",
+            "text": "Puedes invocar tu elemento para protegerte del daño. Cuando una tirada de ataque contra ti tiene éxito, puedes marcar un Estrés y describir cómo usas tu elemento para defenderte. Cuando lo haces, tira un d6 y suma su resultado a tu Evasión contra el ataque."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Trascendencia",
+            "text": "Una vez por descanso largo, puedes transformarte en una manifestación física de tu elemento. Cuando lo haces, describe tu transformación y elige dos de los siguientes beneficios para obtener hasta tu próximo descanso: bonificación de +4 a tu umbral Severo; bonificación de +1 a un rasgo de personaje de tu elección; bonificación de +1 a tu Competencia; bonificación de +2 a tu Evasión."
+          }
+        ]
+      },
+      "primalOrigin": {
+        "foundation": [
+          {
+            "name": "Manipular la magia",
+            "text": "Tu origen primigenio te permite modificar la esencia de la magia misma. Después de lanzar un hechizo o hacer un ataque usando un arma que inflige daño mágico, puedes marcar un Estrés para hacer una de las siguientes cosas: extender el alcance del hechizo o ataque en un rango; obtener una bonificación de +2 al resultado de la tirada de acción; duplicar un dado de daño de tu elección; impactar a un objetivo adicional dentro de rango."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Ayuda encantada",
+            "text": "Puedes potenciar la magia de otros con tu esencia. Cuando Ayudas a un Aliado en una Tirada de Lanzamiento de Conjuros, puedes tirar un d8 como tu dado de ventaja. Una vez por descanso largo, después de que un aliado haya hecho una Tirada de Lanzamiento de Conjuros con tu ayuda, puedes intercambiar los resultados de sus Dados de Dualidad."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Carga arcana",
+            "text": "Puedes reunir energía mágica para potenciar tus capacidades. Cuando recibes daño mágico, quedas Cargado. Como alternativa, puedes gastar 2 Esperanza para quedar Cargado. Cuando tienes éxito en un ataque que inflige daño mágico mientras estás Cargado, puedes gastar tu Carga para obtener una bonificación de +10 a la tirada de daño o una bonificación de +3 a la Dificultad de una tirada de reacción que el hechizo obligue a hacer al objetivo. Dejas de estar Cargado en tu próximo descanso largo."
+          }
+        ]
+      },
+      "callBrave": {
+        "foundation": [
+          {
+            "name": "Coraje",
+            "text": "Cuando fallas una tirada con Miedo, obtienes una Esperanza."
+          },
+          {
+            "name": "Ritual de batalla",
+            "text": "Una vez por descanso largo, antes de intentar algo increíblemente peligroso o enfrentarte a un enemigo que claramente te supera, describe qué ritual realizas o qué preparativos haces. Cuando lo haces, elimina 2 Estrés y obtén 2 Esperanza."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "A la altura del desafío",
+            "text": "Estás vigilante ante el peligro creciente. Mientras tienes 2 o menos Puntos de Vida sin marcar, puedes tirar un d20 como tu Dado de Esperanza."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Camaradería",
+            "text": "Tu valentía inquebrantable es un punto de unión para tus aliados. Puedes iniciar una Tirada en Equipo una vez adicional por sesión. Además, cuando un aliado inicia una Tirada en Equipo contigo, solo necesita gastar 2 Esperanza para hacerlo."
+          }
+        ]
+      },
+      "callSlayer": {
+        "foundation": [
+          {
+            "name": "Verdugo",
+            "text": "Obtienes una reserva de dados llamada Dados de Verdugo. En una tirada con Esperanza, puedes colocar un d6 en esta carta en lugar de obtener una Esperanza, añadiendo el dado a la reserva. Puedes almacenar una cantidad de Dados de Verdugo igual a tu Competencia. Cuando haces una tirada de ataque o una tirada de daño, puedes gastar cualquier número de estos Dados de Verdugo, tirándolos y sumando su resultado a la tirada. Al final de cada sesión, elimina cualquier Dado de Verdugo no gastado en esta carta y obtén una Esperanza por cada dado eliminado."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Especialista en armas",
+            "text": "Puedes empuñar múltiples armas con peligrosa soltura. Cuando tienes éxito en un ataque, puedes gastar una Esperanza para sumar uno de los dados de daño de tu arma secundaria a la tirada de daño. Además, una vez por descanso largo, cuando tiras tus Dados de Verdugo, vuelve a tirar cualquier 1."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Preparación marcial",
+            "text": "Eres un guerrero inspirador para todos los que viajan contigo. Tu grupo obtiene acceso a la acción de tiempo libre Preparación Marcial. Para usar esta acción durante un descanso, describe cómo instruyes y entrenas con tu grupo. Tú y cada aliado que elija esta acción de tiempo libre obtenéis un Dado de Verdugo d6. Un PJ con un Dado de Verdugo puede gastarlo para tirar el dado y sumar el resultado a una tirada de ataque o de daño de su elección."
+          }
+        ]
+      },
+      "schoolKnowledge": {
+        "foundation": [
+          {
+            "name": "Preparado",
+            "text": "Toma una carta de dominio adicional de tu nivel o inferior de un dominio al que tengas acceso."
+          },
+          {
+            "name": "Adepto",
+            "text": "Cuando Utilizas una Experiencia, puedes marcar un Estrés en lugar de gastar una Esperanza. Si lo haces, duplica el modificador de tu Experiencia para esa tirada."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Consumado",
+            "text": "Toma una carta de dominio adicional de tu nivel o inferior de un dominio al que tengas acceso."
+          },
+          {
+            "name": "Recuerdo perfecto",
+            "text": "Una vez por descanso, cuando recuperas una carta de dominio de tu bóveda, puedes reducir su Coste de Recuperación en 1."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Brillante",
+            "text": "Toma una carta de dominio adicional de tu nivel o inferior de un dominio al que tengas acceso."
+          },
+          {
+            "name": "Pericia afinada",
+            "text": "Cuando usas una Experiencia, tira un d6. Con un resultado de 5 o más, puedes usarla sin gastar Esperanza."
+          }
+        ]
+      },
+      "schoolWar": {
+        "foundation": [
+          {
+            "name": "Mago de batalla",
+            "text": "Has enfocado tus estudios en convertirte en una fuerza inconquistable en el campo de batalla. Obtén una casilla de Punto de Vida adicional."
+          },
+          {
+            "name": "Encara tu miedo",
+            "text": "Cuando tienes éxito con Miedo en una tirada de ataque, infliges 1d10 de daño mágico adicional."
+          }
+        ],
+        "specialization": [
+          {
+            "name": "Invocar escudo",
+            "text": "Puedes mantener una barrera protectora de magia. Mientras tienes al menos 2 Esperanza, sumas tu Competencia a tu Evasión."
+          },
+          {
+            "name": "Alimentado por el miedo",
+            "text": "El daño mágico adicional de tu rasgo «Encara tu miedo» aumenta a 2d10."
+          }
+        ],
+        "mastery": [
+          {
+            "name": "Prosperar en el caos",
+            "text": "Cuando tienes éxito en un ataque, puedes marcar un Estrés después de tirar el daño para forzar al objetivo a marcar un Punto de Vida adicional."
+          },
+          {
+            "name": "Sin miedo alguno",
+            "text": "El daño mágico adicional de tu rasgo «Encara tu miedo» aumenta a 3d10."
+          }
+        ]
+      }
+    },
     "domain": {
       "arcana": "Arcana",
       "arcana_desc": "Magia innata e instintiva que canaliza fuerzas arcanas crudas.",
@@ -1124,5 +1924,16 @@
     "full_plate": {
       "name": "Armadura de placas completa"
     }
+  },
+  "feat": {
+    "sectionTitle": "Habilidades",
+    "ancestryTitle": "Habilidades de ancestría",
+    "communityTitle": "Habilidad de comunidad",
+    "classTitle": "Rasgos de clase",
+    "hopeLabel": "Rasgo de Esperanza",
+    "subclassTitle": "Rasgos de subclase",
+    "foundation": "Fundamento",
+    "specialization": "Especialización",
+    "mastery": "Maestría"
   }
 }

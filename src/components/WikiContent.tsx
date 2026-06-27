@@ -31,6 +31,7 @@ import { SECONDARY_WEAPONS, ARMORS } from "@/lib/daggerheart/equipment";
 import { CARDS_BY_ID } from "@/lib/daggerheart/cards";
 import { DOMAINS } from "@/lib/daggerheart/reference";
 import { LevelPennant } from "@/components/LevelPennant";
+import { WikiEntryFeatures } from "@/components/FeatureSection";
 import { artUrl } from "@/lib/art";
 
 // ── Category meta ────────────────────────────────────────────────────────────
@@ -328,6 +329,12 @@ function WikiCard({
 
 // ── WikiEntryView (full-screen detail for art entries) ────────────────────────
 
+function isFeatureCategory(
+  c: WikiCategory,
+): c is "ancestry" | "community" | "class" {
+  return c === "ancestry" || c === "community" || c === "class";
+}
+
 function WikiEntryView({ entry }: { entry: WikiEntry }) {
   const { t } = useTranslation();
   const meta = META_BY_VALUE[entry.category];
@@ -404,12 +411,22 @@ function WikiEntryView({ entry }: { entry: WikiEntry }) {
         </div>
       </div>
 
-      {/* Scrollable: lore only */}
-      {lore && (
+      {/* Scrollable: lore + abilities */}
+      {(lore || isFeatureCategory(entry.category)) && (
         <div className="mt-4 flex-1 overflow-y-auto px-5 pb-safe">
-          <p className="mx-auto max-w-[60ch] whitespace-pre-line pb-8 text-justify text-[15px] leading-relaxed text-muted [hyphens:auto]">
-            {lore}
-          </p>
+          {lore && (
+            <p className="mx-auto max-w-[60ch] whitespace-pre-line text-justify text-[15px] leading-relaxed text-muted [hyphens:auto]">
+              {lore}
+            </p>
+          )}
+          {isFeatureCategory(entry.category) && (
+            <div className="pb-8 pt-4">
+              <WikiEntryFeatures
+                category={entry.category}
+                entryKey={entry.id.replace(/^(ancestry|community|class)_/, "")}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

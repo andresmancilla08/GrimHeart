@@ -13,3 +13,8 @@
 
 ### Build con webpack, no Turbopack — Vigente
 - **Por qué:** compatibilidad con Serwist (`@serwist/next`).
+
+### Habilidades (features) de ancestría/comunidad/clase/subclase en i18n estructurado — Vigente
+- **Qué:** El texto mecánico de las habilidades vive en `dh.ancestryFeat` / `dh.communityFeat` / `dh.classFeat` / `dh.subclassFeat` (objetos/arrays `{name,text}` leídos con `t(key,{returnObjects:true})`). UI labels en `feat.*`. Render con `src/components/FeatureSection.tsx` (reutilizado en hoja y wiki).
+- **Por qué:** Cada entidad guardaba solo nombre + `_desc` + `_lore` (sabor), nunca la habilidad de regla (ej. Marino → «Conoce la marea»). Estructura anidada evita cientos de claves planas y soporta features variables por entidad.
+- **Descartado:** Claves i18n planas por feature (inmanejable con 1-3 features variables) y archivo TS de datos aparte (duplica estructura; rompe consistencia i18n).

@@ -6,6 +6,7 @@ import type { Character, TraitKey } from "@/lib/daggerheart/types";
 import { CARDS_BY_ID } from "@/lib/daggerheart/cards";
 import { WEAPONS_BY_ID, ARMOR_BY_ID } from "@/lib/daggerheart/equipment";
 import { LevelPennant } from "@/components/LevelPennant";
+import { CharacterFeatures } from "@/components/FeatureSection";
 import { artUrl } from "@/lib/art";
 
 // NOTA: boostedTraits ya existe en Character; cast defensivo por si otro agente lo modifica
@@ -176,6 +177,14 @@ export function CharacterSheetClient({ character: c }: Props) {
             </div>
           </div>
         )}
+
+        {/* ── Abilities (ancestry / community / class / subclass features) ── */}
+        <CharacterFeatures
+          ancestryKey={c.ancestryKey}
+          communityKey={c.communityKey}
+          classKey={c.classKey}
+          subclassKey={c.subclassKey}
+        />
 
         {/* ── Equipment ── */}
         {(weapons.length > 0 || armor) && (
