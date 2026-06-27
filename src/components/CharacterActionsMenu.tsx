@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { IconDots, IconPencil, IconTrash, IconBook } from "@tabler/icons-react";
+import { IconDots, IconPencil, IconTrash, IconBook, IconChevronsUp } from "@tabler/icons-react";
 import { BottomSheet } from "@/components/ui/BottomSheet";
 import { AppDialog } from "@/components/ui/AppDialog";
+import { LevelUpFlow } from "@/components/LevelUpFlow";
 import { deleteCharacter } from "@/lib/characters/actions";
 import type { Character } from "@/lib/daggerheart/types";
 
@@ -14,10 +15,12 @@ export function CharacterActionsMenu({ character }: { character: Character }) {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [levelUpOpen, setLevelUpOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   // Editing is only available before any level-up.
   const canEdit = character.level <= 1;
+  const canLevelUp = character.level < 10;
 
   async function handleDelete() {
     setDeleting(true);
@@ -64,6 +67,20 @@ export function CharacterActionsMenu({ character }: { character: Character }) {
             <IconBook size={20} stroke={1.8} className="text-gold" />
             <span className="font-medium">{t("journal.title")}</span>
           </button>
+
+          {canLevelUp && (
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                setLevelUpOpen(true);
+              }}
+              className="flex h-12 w-full items-center gap-3 rounded-2xl border border-gold/30 bg-gold/[0.12] px-4 text-left text-gold transition hover:brightness-110 active:scale-[0.99]"
+            >
+              <IconChevronsUp size={20} stroke={1.8} />
+              <span className="font-medium">{t("levelUp.button")}</span>
+            </button>
+          )}
 
           {canEdit ? (
             <button
@@ -115,6 +132,13 @@ export function CharacterActionsMenu({ character }: { character: Character }) {
         primaryDisabled={deleting}
         onPrimary={handleDelete}
         secondaryLabel={t("common.cancel")}
+      />
+
+      <LevelUpFlow
+        key={levelUpOpen ? `flow-${character.id}` : "closed"}
+        character={character}
+        open={levelUpOpen}
+        onClose={() => setLevelUpOpen(false)}
       />
     </>
   );
